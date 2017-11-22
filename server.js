@@ -43,6 +43,19 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/read", (req, res) => {
+  res.render("item", {category: 'Read'});
+});
+app.get("/eat", (req, res) => {
+  res.render("item", {category: 'Eat'});
+});
+app.get("/buy", (req, res) => {
+  res.render("item", {category: 'Buy'});
+});
+app.get("/watch", (req, res) => {
+  res.render("item", {category: 'Watch'});
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
