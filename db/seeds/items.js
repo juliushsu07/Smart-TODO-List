@@ -3,7 +3,6 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       return Promise.all([
         knex('items').insert({
-          id: 1,
           category: 'read',
           name: "Harry Potter",
           description: 'book',
@@ -11,6 +10,42 @@ exports.seed = function(knex, Promise) {
           date_completed: null,
           user_id: 1
         })
-      ]);
-    });
+     ]);
+   })
+    .then(function () {
+      return Promise.all([
+        knex('items').insert({
+          category: 'eat',
+          name: "Wilbur Mexicana",
+          description: 'restaurant',
+          date_added: '2017-11-22',
+          date_completed: null,
+          user_id: 2
+        })
+     ]);
+   })
+    .then(function () {
+      return Promise.all([
+        knex('items').insert({
+          category: 'watch',
+          name: "Silicon Valley",
+          description: 'tv show',
+          date_added: '2017-11-22',
+          date_completed: null,
+          user_id: 2
+        })
+     ]);
+   })
+    .then(function () {
+      return Promise.all([
+        knex('items').insert({
+          category: 'buy',
+          name: "iPhone 8",
+          description: 'phone',
+          date_added: '2017-11-22',
+          date_completed: null,
+          user_id: 3
+        })
+     ]);
+   })
 };
