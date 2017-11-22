@@ -15,7 +15,14 @@ module.exports = (knex) => {
   });
 
 router.post("/", (req, res) => {
-  knex('items').insert([req.body])
+  let date = new Date()
+  knex('items').insert([{
+    category: req.body.category,
+    name: req.body.name,
+    description: req.body.description,
+    date_added: date.toISOString().substr(0,10),
+    user_id: req.body.user_id
+    }])
   .then(res.redirect('/'))
   .catch(err => res.send(err));
 
