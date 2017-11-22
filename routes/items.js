@@ -14,5 +14,11 @@ module.exports = (knex) => {
     });
   });
 
+router.post("/", (req, res) => {
+  knex('items').insert([req.body])
+  .then(res.redirect('/'))
+  .catch(err => res.send(err));
+
+})
   return router;
 }

@@ -15,8 +15,11 @@
     <header> <h1>Smart TODO list</h1> </header>
 
     <main>
-      <form action="/" method="POST">
-        <textarea>  </textarea>
+      <form action="/api/items" method="POST">
+        <textarea name="category" placeholder="category"></textarea>
+        <textarea name="name" placeholder="name"></textarea>
+        <textarea name="description" placeholder="description"></textarea>
+        <textarea name="user_id" placeholder="user_id"></textarea>
 
         <input type="submit" value="Submit">
       </form>
