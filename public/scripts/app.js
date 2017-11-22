@@ -21,6 +21,9 @@ $(() => {
     console.log( event.target.className );
 
     window.location.href=`/${event.target.className}`;
+
+
+
   });
 
   // $.ajax({
