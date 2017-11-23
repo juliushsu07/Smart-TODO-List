@@ -10,7 +10,7 @@ module.exports = function googleAPI(text, callback) {
     if(req.statusCode === 200) {
       const lookup = {
         "www.yelp.ca": "eat",
-        "www.imdb.com": "watch",
+        "www.rottentomatoes.com": "watch",
         "www.goodreads.com": "read",
         "www.amazon.ca": "buy"
       };
