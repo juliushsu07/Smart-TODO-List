@@ -1,42 +1,25 @@
 const request = require('request');
-
-require('dotenv').config();
 const clientKey = process.env.DB_GOOGLE_KEY;
 
-console.log(clientKey);
+require('dotenv').config();
 
-// googleAPI = function(text) {
-//   request
-//   .get(`https://www.googleapis.com/customsearch/v1?q=${text}&cx=003159225023571024600%3Apw3tqlhkvcu&num=1&key=${clientKey}`)
-//   .on('response', function (response) {
-//     console.log(response.body);
-//   });
-//   };
+module.exports = function googleAPI(text, callback) {
 
-// googleAPI('Dunkirk')
-
-
-function googleAPI(text, callback) {
-  let requestOptions = {
-    url : `https://www.googleapis.com/customsearch/v1?q=${text}&cx=003159225023571024600%3Apw3tqlhkvcu&num=1&key=${clientKey}`
-  };
-
-  console.log('sending...')
-  request(requestOptions, function(err, req, body) {
+  request(`https://www.googleapis.com/customsearch/v1?q=${text}&cx=003159225023571024600%3Apw3tqlhkvcu&num=1&key=${clientKey}`
+          , function(err, req, body) {
     if(req.statusCode === 200) {
-      console.log('OK');
-      callback(JSON.parse(body));
+      const lookup = {
+        "www.yelp.ca": "eat",
+        "www.imdb.com": "watch",
+        "www.goodreads.com": "read",
+        "www.amazon.ca": "buy"
+      };
+      callback(null, lookup[JSON.parse(body).items[0].displayLink], JSON.parse(body).items[0].title);
     }
     else {
-      console.log('Status Code: ', req.statusCode);
-      if (req.statusCode === 404) {
-        console.log('404 ERROR');
-      } else if (req.statusCode === 401) {
-        console.log('ERROR 401');
-      }
+      console.log(clientKey);
+      console.log(JSON.parse(body));
+      callback({error: '#google_problems'});
     }
   });
-}
-
-googleAPI('Shantaram', console.log)
-
+};

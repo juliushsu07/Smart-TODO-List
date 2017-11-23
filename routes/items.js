@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const googleAPI = require('../api/google.js');
 
 module.exports = (knex) => {
 
@@ -16,18 +17,20 @@ module.exports = (knex) => {
 
 
   router.post("/", (req, res) => {
-    let date = new Date()
-    knex('items').insert([{
-        category: req.body.category,
-        name: req.body.name,
-        description: req.body.description,
-        date_added: date.toISOString().substr(0, 10),
-        user_id: req.body.user_id
-      }])
-      .then(res.redirect('/'))
-      .catch(err => res.send(err));
+    let date = new Date();
+    googleAPI(req.body.name, function(err, category, description){
 
-  })
+      knex('items').insert([{
+          category: category,
+          name: req.body.name,
+          description: description,
+          date_added: date.toISOString().substr(0, 10),
+          user_id: 1
+        }])
+        .then(res.redirect('/'))
+        .catch(err => res.send(err));
+    });
+  });
 
 
   router.post("/:id", (req, res) => {
@@ -43,5 +46,6 @@ module.exports = (knex) => {
 
 
 
+
   return router;
-}
+};
