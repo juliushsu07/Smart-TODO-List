@@ -42,6 +42,7 @@ function createEatDescription(item) {
       <p>Address: ${escape(item.location.address1)}</p>
       <p>Rating: ${escape(item.rating)}</p>
       <p>Phone #: ${escape(item.phone)}</p>
+      <a href="${item.url}">Visit Link</a>
     </div>
   `;
   return title;
