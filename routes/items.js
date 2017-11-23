@@ -16,6 +16,9 @@ module.exports = (knex) => {
 
 router.post("/", (req, res) => {
   let date = new Date()
+
+
+
   knex('items').insert([{
     category: req.body.category,
     name: req.body.name,
