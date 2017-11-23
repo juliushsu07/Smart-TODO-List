@@ -42,6 +42,9 @@ function createDescription(item){
 }
 
 
+
+
+
 let slideDown = function() {
   $('ul').on('click', 'li', function() {
     let description = createDescription($(this).text());
