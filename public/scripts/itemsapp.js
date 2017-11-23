@@ -4,10 +4,10 @@ function escape(str) {
   return div.innerHTML;
 }
 
-function createListItems(items) {
+function createListItems(item) {
   let $items = `
-    <li> <input type="checkbox" name="" value="Harry Potter" class="item"> ${escape(items)} </li>
-  `;
+      <li> <input type="checkbox" value="${item}" class="item"> ${escape(item)} </li>
+    `;
   return $items;
 }
 
@@ -21,13 +21,37 @@ function loadDataIntoList() {
     let categoryFiltered = category.toUpperCase().trim();
 
     for (item of items) {
-      if (item.category.toUpperCase().trim() === categoryFiltered ) {
+      if (item.category.toUpperCase().trim() === categoryFiltered) {
         $('ul').append(createListItems(item.name));
       }
     }
   });
 }
 
+function createDescription(item){
+  console.log(item);
+  let title = `
+    <div>
+      <h1>${escape(item)}</h1>
+      <p>This is ${escape(item)}!</p>
+    </div>
+  `;
+  return title;
+}
+
+
+let slideDown = function() {
+  $('ul').on('click', 'li', function() {
+    console.log($(this));
+    let description = createDescription($(this).text());
+    $('section').empty();
+    $('section').append(description);
+    $('section').toggle( () => {});
+  });
+}
+
+
 $(() => {
   loadDataIntoList();
+  slideDown();
 });
