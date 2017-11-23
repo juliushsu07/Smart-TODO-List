@@ -41,20 +41,10 @@ module.exports = (knex) => {
   });
 
 
-  // router.post("/:id", (req, res) => {
-  //   const category = req.query.category;
-  //   console.log("deleted", req.params.id);
-  //   knex('items')
-  //     .where('name', req.params.id)
-  //     .delete()
-  //     .then(res.redirect(`/${category}`))
-  //     .catch(err => res.send(err));
-  // });
-
-  router.delete("/:id", (req, res) => {
-    console.log("deleted", req.params.id);
+  router.delete("/:name", (req, res) => {
+    console.log("deleted", req.params.name);
     knex('items')
-      .where('name', req.params.id)
+      .where('name', req.params.name)
       .delete()
       .then(() => {
         res.json({success: true})
