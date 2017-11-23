@@ -3,6 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const googleAPI = require('../api/google.js');
+const yelpAPI = require('../api/yelp.js');
+
 
 module.exports = (knex) => {
 
@@ -57,6 +59,13 @@ module.exports = (knex) => {
       })
       .catch(err => res.send(err));
   });
+
+  router.get('/:name', (req, res) => {
+    yelpAPI(req.params.name, (jsonres) => {
+      res.send(jsonres)
+    })
+  })
+
 
   return router;
 };

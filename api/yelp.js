@@ -2,14 +2,16 @@
 
 const yelp = require('yelp-fusion');
 require('dotenv').config()
-
-// Place holders for Yelp Fusion's OAuth 2.0 credentials. Grab them
-// from https://www.yelp.com/developers/v3/manage_app
 const clientId = process.env.DB_YELP_CLIENT_ID;
 const clientSecret = process.env.DB_YELP_CLIENT_SECRET;
 
+
+
+
+module.exports = function yelpAPI(term, callback) {
+
 const searchRequest = {
-  term:'Wilbur',
+  term: term,
   location: 'toronto, on'
 };
 
@@ -18,9 +20,14 @@ yelp.accessToken(clientId, clientSecret).then(response => {
 
   client.search(searchRequest).then(response => {
     const firstResult = response.jsonBody.businesses[0];
-    const prettyJson = JSON.stringify(firstResult, null, 4);
-    console.log(prettyJson);
+    callback(firstResult);
   });
 }).catch(e => {
   console.log(e);
 });
+
+}
+
+
+
+

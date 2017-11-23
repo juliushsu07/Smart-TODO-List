@@ -1,3 +1,4 @@
+
 function escape(str) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
@@ -5,6 +6,7 @@ function escape(str) {
 }
 
 function createListItems(itemname) {
+  console.log(itemname);
   const $form = $(`
     <form>
        <input type="submit" value="Delete">
@@ -32,6 +34,7 @@ function createListItems(itemname) {
   $itemname.append($form);
 
   return $itemname;
+
 }
 
 function loadDataIntoList() {
@@ -51,11 +54,17 @@ function loadDataIntoList() {
 }
 
 
-function createDescription(item) {
+function createEatDescription(item) {
   let title = `
     <div>
-      <h1>${escape(item)}</h1>
-      <p>This is ${escape(item)}!</p>
+      <h1>${escape(item.name)}</h1>
+      <p>Are they open? ${escape(item.is_closed)}
+      <p>Food Type : ${escape(item.categories[0].title)}</p>
+      <img src="${(item.image_url)}" height="300px" width="300px">
+      <p>Address: ${escape(item.location.address1)}</p>
+      <p>Rating: ${escape(item.rating)}</p>
+      <p>Phone #: ${escape(item.phone)}</p>
+      <a href="${item.url}">Visit Link</a>
     </div>
   `;
   return title;
@@ -64,10 +73,16 @@ function createDescription(item) {
 
 let slideDown = function() {
   $('ul').on('click', 'p', function() {
-    let description = createDescription($(this).text());
-    $('section').empty();
-    $('section').append(description);
-    $('section').toggle(() => {});
+    $.ajax({
+      method: "GET",
+      url: `/api/items/${$(this).text()}`
+    }).done((res) => {
+      console.log(res)
+      let description = createEatDescription(res);
+      $('section').empty();
+      $('section').append(description);
+      $('section').toggle(() => {});
+     })
   });
 }
 
