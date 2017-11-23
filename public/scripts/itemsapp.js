@@ -4,14 +4,34 @@ function escape(str) {
   return div.innerHTML;
 }
 
-function createListItems(item) {
-  let $items = `
-      <li> <input type="checkbox" value="${item}" class="item"> ${escape(item)}</li>
-      <form action="/api/items/${item}?category=${category}" method="POST">
-         <input type="submit" value="Delete">
-      </form>
-     `;
-  return $items;
+function createListItems(itemname) {
+  const $form = $(`
+    <form>
+       <input type="submit" value="Delete">
+    </form>
+  `);
+
+  $form.on('submit', (e) => {
+    //ajax call
+    e.preventDefault();
+    // e.stopPropagation();
+    $.ajax({
+      method: "DELETE",
+      url: `/api/items/${itemname}`
+    }).done((itemname) => {
+      loadDataIntoList();
+    });
+  });
+
+  const $itemname = $(`
+      <li>
+        <input type="checkbox" value="${itemname}" class="itemname"> <p>${escape(itemname)}</p>
+      </li>
+     `);
+
+  $itemname.append($form);
+
+  return $itemname;
 }
 
 function loadDataIntoList() {
@@ -19,10 +39,9 @@ function loadDataIntoList() {
     method: "GET",
     url: "/api/items"
   }).done((items) => {
-
+    $('ul').empty();
     let category = $('h1').closest('header').text();
     let categoryFiltered = category.toUpperCase().trim();
-
     for (item of items) {
       if (item.category.toUpperCase().trim() === categoryFiltered) {
         $('ul').append(createListItems(item.name));
@@ -44,7 +63,7 @@ function createDescription(item) {
 
 
 let slideDown = function() {
-  $('ul').on('click', 'li', function() {
+  $('ul').on('click', 'p', function() {
     let description = createDescription($(this).text());
     $('section').empty();
     $('section').append(description);
