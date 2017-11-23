@@ -31,7 +31,7 @@ function loadDataIntoList() {
   });
 }
 
-function createDescription(item){
+function createDescription(item) {
   let title = `
     <div>
       <h1>${escape(item)}</h1>
@@ -42,15 +42,12 @@ function createDescription(item){
 }
 
 
-
-
-
 let slideDown = function() {
   $('ul').on('click', 'li', function() {
     let description = createDescription($(this).text());
     $('section').empty();
     $('section').append(description);
-    $('section').toggle( () => {});
+    $('section').toggle(() => {});
   });
 }
 

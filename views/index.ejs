@@ -9,34 +9,24 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
   <script type="text/javascript" src="/api/google.js"></script>
+</head>
 
-  </head>
-
-  <body>
-    <header> <h1>Smart TODO list</h1> </header>
-
-    <main>
-      <form action="/api/items" method="POST">
-        <textarea name="name" placeholder="name"></textarea>
-        <input type="submit" value="Submit">
-      </form>
-
-
-
-
-
-
-      <section class="lists">
-
-        <div><a href="/watch">WATCH</a></div>
-        <div><a href="/read">READ</a></div>
-        <div><a href="/buy">BUY</a> </div>
-        <div><a href="/eat">EAT</a></div>
-
-      </section>
-    </main>
-
-
-  </body>
+<body>
+  <header>
+    <h1>Smart TODO list</h1> </header>
+  <main>
+    <form action="/api/items" method="POST">
+      <textarea name="name" placeholder="name"></textarea>
+      <input type="submit" value="Submit">
+    </form>
+    <section class="lists">
+      <div><a href="/watch">WATCH</a></div>
+      <div><a href="/read">READ</a></div>
+      <div><a href="/buy">BUY</a> </div>
+      <div><a href="/eat">EAT</a></div>
+    </section>
+  </main>
+</body>
 
 </html>
+
