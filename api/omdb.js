@@ -11,7 +11,8 @@ function omdbAPI(text,callback) {
 request(`http://www.omdbapi.com/?apikey=${clientKey}&t=${text}`,
   function(err, req, body) {
     if(req.statusCode === 200) {
-        console.log(JSON.parse(body))
+        console.log('OMDB request worked. sending response to client')
+        callback(JSON.parse(body))
     }
     else {
       console.log(clientKey);
@@ -22,7 +23,7 @@ request(`http://www.omdbapi.com/?apikey=${clientKey}&t=${text}`,
 }
 
 
-omdbAPI("Porco Rosso", console.log)
+//omdbAPI("Porco Rosso", console.log)
 
 
 module.exports =  omdbAPI;
