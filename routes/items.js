@@ -3,6 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const googleAPI = require('../api/google.js');
+const yelpAPI = require('../api/yelp.js');
+
 
 module.exports = (knex) => {
 
@@ -35,10 +37,20 @@ module.exports = (knex) => {
   });
 
 
-  router.post("/:id", (req, res) => {
-    console.log("deleted", req.params.id);
+
+  router.get('/:name', (req, res) => {
+    yelpAPI(req.params.name, (jsonres) => {
+      res.send(jsonres)
+    })
+  })
+
+
+
+
+  router.post("/:name", (req, res) => {
+    console.log("deleted", req.params.name);
     knex('items')
-      .where('name', req.params.id)
+      .where('name', req.params.name)
       .delete()
       .then(res.redirect("/"))
       .catch(err => res.send(err));
