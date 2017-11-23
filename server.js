@@ -45,19 +45,23 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/read", (req, res) => {
-  res.render("item", {category: 'Read'});
+app.get("/:id", (req, res) => {
+  if (["read", "eat", "buy", "watch"].includes(req.params.id) ) {
+    res.render("item", {category: req.params.id})
+  } else {
+    res.status(404).send("The list you are looking for does not exist! ");
+  }
 });
-app.get("/eat", (req, res) => {
-  res.render("item", {category: 'Eat'});
-});
-app.get("/buy", (req, res) => {
-  res.render("item", {category: 'Buy'});
-});
-app.get("/watch", (req, res) => {
-  res.render("item", {category: 'Watch'});
-});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+
+
+
+
+
+
+

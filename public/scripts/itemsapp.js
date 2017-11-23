@@ -6,8 +6,11 @@ function escape(str) {
 
 function createListItems(item) {
   let $items = `
-      <li> <input type="checkbox" value="${item}" class="item"> ${escape(item)} </li>
-    `;
+      <li> <input type="checkbox" value="${item}" class="item"> ${escape(item)}</li>
+      <form action="/api/items/${item}" method="POST">
+         <input type="submit" value="Delete">
+      </form>
+     `;
   return $items;
 }
 
@@ -29,7 +32,6 @@ function loadDataIntoList() {
 }
 
 function createDescription(item){
-  console.log(item);
   let title = `
     <div>
       <h1>${escape(item)}</h1>
@@ -42,7 +44,6 @@ function createDescription(item){
 
 let slideDown = function() {
   $('ul').on('click', 'li', function() {
-    console.log($(this));
     let description = createDescription($(this).text());
     $('section').empty();
     $('section').append(description);
