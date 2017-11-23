@@ -1,7 +1,5 @@
-const request = require('request');
+const request     = require('request');
 const clientKey = process.env.DB_GOOGLE_KEY;
-
-require('dotenv').config();
 
 module.exports = function googleAPI(text, callback) {
 
