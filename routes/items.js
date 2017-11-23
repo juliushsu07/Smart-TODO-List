@@ -14,6 +14,7 @@ module.exports = (knex) => {
       });
   });
 
+
   router.post("/", (req, res) => {
     let date = new Date()
     knex('items').insert([{
@@ -37,6 +38,7 @@ module.exports = (knex) => {
     .then(res.redirect("/"))
     .catch(err => res.send(err));
   })
+
 
 
 
