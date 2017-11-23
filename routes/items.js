@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const googleAPI = require('../api/google.js');
 const yelpAPI = require('../api/yelp.js');
+const omdbAPI = require('../api/omdb.js');
+
 
 
 module.exports = (knex) => {
@@ -60,11 +62,19 @@ module.exports = (knex) => {
       .catch(err => res.send(err));
   });
 
-  router.get('/:name', (req, res) => {
+  router.get('/eat/:name', (req, res) => {
     yelpAPI(req.params.name, (jsonres) => {
       res.send(jsonres)
     })
   })
+
+
+  router.get('/watch/:name', (req, res) => {
+    omdbAPI(req.params.name, (jsonres) => {
+      res.send(jsonres)
+    })
+  })
+
 
 
   return router;

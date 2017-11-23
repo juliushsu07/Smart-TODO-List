@@ -72,18 +72,38 @@ function createEatDescription(item) {
 
 
 let slideDown = function() {
+
   $('ul').on('click', 'p', function() {
-    $.ajax({
-      method: "GET",
-      url: `/api/items/${$(this).text()}`
-    }).done((res) => {
-      console.log(res)
-      let description = createEatDescription(res);
-      $('section').empty();
-      $('section').append(description);
-      $('section').toggle(() => {});
+    console.log($('h1').text().trim())
+    if($('h1').text().trim() == 'eat'){
+
+      $.ajax({
+        method: "GET",
+        url: `/api/items/eat/${$(this).text()}`
+      }).done((res) => {
+        console.log(res)
+        let description = createEatDescription(res);
+        $('section').empty();
+        $('section').append(description);
+        $('section').toggle(() => {});
+         })
+
+    } else if($('h1').text().trim() == 'watch'){
+      console.log('aaaaaaaaa');
+      $.ajax({
+        method: "GET",
+        url: `/api/items/watch/${$(this).text()}`
+      }).done((res) => {
+        console.log('result::')
+        console.log(res)
+        //let description = createEatDescription(res);
+        //$('section').empty();
+        //$('section').append(description);
+        //$('section').toggle(() => {});
      })
+    }
   });
+
 }
 
 
