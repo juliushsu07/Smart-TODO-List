@@ -38,11 +38,12 @@ module.exports = (knex) => {
 
 
   router.post("/:id", (req, res) => {
+    const category = req.query.category;
     console.log("deleted", req.params.id);
     knex('items')
       .where('name', req.params.id)
       .delete()
-      .then(res.redirect("/"))
+      .then(res.redirect(`/${category}`))
       .catch(err => res.send(err));
   });
 

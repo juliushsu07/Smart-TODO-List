@@ -7,7 +7,7 @@ function escape(str) {
 function createListItems(item) {
   let $items = `
       <li> <input type="checkbox" value="${item}" class="item"> ${escape(item)}</li>
-      <form action="/api/items/${item}" method="POST">
+      <form action="/api/items/${item}?category=${category}" method="POST">
          <input type="submit" value="Delete">
       </form>
      `;
@@ -30,6 +30,7 @@ function loadDataIntoList() {
     }
   });
 }
+
 
 function createDescription(item) {
   let title = `
