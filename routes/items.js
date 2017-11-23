@@ -18,6 +18,8 @@ module.exports = (knex) => {
 
   router.post("/", (req, res) => {
     let date = new Date();
+    console.log(req.body);
+    debugger;
     googleAPI(req.body.name, function(err, category, description){
       if (err){
         res.send('500: error automatically categorizing');
@@ -42,7 +44,7 @@ module.exports = (knex) => {
       .delete()
       .then(res.redirect("/"))
       .catch(err => res.send(err));
-  })
+  });
 
   return router;
 };
