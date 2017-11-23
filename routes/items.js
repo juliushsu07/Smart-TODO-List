@@ -18,7 +18,7 @@ module.exports = (knex) => {
 
   router.post("/", (req, res) => {
     let date = new Date();
-    googleAPI(req.body.name, function(err, category, description){
+    googleAPI(req.body.name, function(err, category, description) {
 
       knex('items').insert([{
           category: category,
@@ -42,10 +42,7 @@ module.exports = (knex) => {
       .catch(err => res.send(err));
   })
 
-
-
-
-
-
   return router;
 };
+
+
