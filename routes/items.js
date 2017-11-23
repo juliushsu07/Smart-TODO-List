@@ -36,17 +36,15 @@ module.exports = (knex) => {
 
 
   router.post("/:id", (req, res) => {
-    console.log("deleted",req.params.id);
+    console.log("deleted", req.params.id);
     knex('items')
-    .where('name', req.params.id)
-    .delete()
-    .then(res.redirect("/"))
-    .catch(err => res.send(err));
-  });
-
-
-
-
+      .where('name', req.params.id)
+      .delete()
+      .then(res.redirect("/"))
+      .catch(err => res.send(err));
+  })
 
   return router;
 };
+
+
