@@ -45,6 +45,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+//list page
 app.get("/:id", (req, res) => {
   if (["read", "eat", "buy", "watch"].includes(req.params.id) ) {
     res.render("item", {category: req.params.id})
