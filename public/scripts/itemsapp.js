@@ -141,12 +141,6 @@ function createDescription(category, item) {
 
 
       `
-
-
-
-
-
-
       break;
   }
   return discriptBox;
