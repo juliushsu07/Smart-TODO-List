@@ -1,19 +1,24 @@
 
 const request   = require('request');
 const clientKey = process.env.GOODREADS_KEY;
+const {parseString} = require('xml2js');
 
-module.exports = function googleAPI(text, callback) {
+function goodreadsAPI(text, callback) {
 
-  request(`https://www.goodreads.com/search/index.xml?q=harry+potter&key=oYQ4Rnj1luJbD352YA3Q`
+  request(`https://www.goodreads.com/search/index.xml?q=${text}&key=${clientKey}`
           , function(err, req, body) {
+    console.log('GOODREADS', err, req, body);
     if(req.statusCode === 200) {
-
-      callback(null, lookup[JSON.parse(body).items[0].displayLink], JSON.parse(body).items[0].title);
+      parseString(body, callback);
     }
     else {
       console.log(clientKey);
-      console.log(JSON.parse(body));
-      callback({error: '#google_problems'});
+      console.log(err);
+      callback({error: '#goodreads_problems'});
     }
   });
 };
+
+// goodreadsAPI('harry potter', console.log);
+
+module.exports = goodreadsAPI;

@@ -5,6 +5,7 @@ const router = express.Router();
 const googleAPI = require('../api/google.js');
 const yelpAPI = require('../api/yelp.js');
 const omdbAPI = require('../api/omdb.js');
+const goodreadsAPI = require('../api/goodreads.js');
 
 
 
@@ -65,6 +66,11 @@ module.exports = (knex) => {
     })
   })
 
+  router.get('/read/:name', (req, res) => {
+    goodreadsAPI(req.params.name, (err, jsonres) => {
+      res.send(jsonres)
+    })
+  })
 
 
   return router;
