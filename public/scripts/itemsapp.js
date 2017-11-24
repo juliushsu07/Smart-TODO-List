@@ -6,44 +6,38 @@ function escape(str) {
 }
 
 function createListItems(itemname) {
-
-  const $form = $(`
-    <form>
-       <input type="submit" value="Delete">
-    </form>
+  return $(`
+    <li>
+      <form>
+        <input type="checkbox" value="${escape(itemname)}" class="itemname"> <p>${escape(itemname)}</p>
+        <input type="submit" value="Delete">
+      </form>
+    </li>
   `);
+}
 
-  $form.on('submit', (e) => {
-    //ajax call
+function deleteElementFromList(){
+ $('body').on('submit', 'form', function(e){
+    let itemname = $(this).parent().find('p').text();
     e.preventDefault();
-    // e.stopPropagation();
+    //ajax call
     $.ajax({
       method: "DELETE",
       url: `/api/items/${itemname}`
     }).done((itemname) => {
+      $('ul').empty();
       loadDataIntoList();
     });
   });
-
-  const $itemname = $(`
-      <li>
-        <input type="checkbox" value="${itemname}" class="itemname"> <p>${escape(itemname)}</p>
-      </li>
-     `);
-
-  $itemname.append($form);
-
-  return $itemname;
-
 }
+
 
 function loadDataIntoList() {
   $.ajax({
     method: "GET",
     url: "/api/items"
   }).done((items) => {
-    $('ul').empty();
-    let category = $('h1').closest('header').text();
+    let category = $('.category-name').text();
     let categoryFiltered = category.toUpperCase().trim();
     for (item of items) {
       if (item.category.toUpperCase().trim() === categoryFiltered) {
@@ -54,60 +48,52 @@ function loadDataIntoList() {
 }
 
 
-function createEatDescription(item) {
-  let title = `
-    <div>
-      <h1>${escape(item.name)}</h1>
-      <p>Are they open? ${escape(item.is_closed)}
-      <p>Food Type : ${escape(item.categories[0].title)}</p>
-      <img src="${(item.image_url)}" height="300px" width="300px">
-      <p>Address: ${escape(item.location.address1)}</p>
-      <p>Rating: ${escape(item.rating)}</p>
-      <p>Phone #: ${escape(item.phone)}</p>
-      <a href="${item.url}">Visit Link</a>
-    </div>
-  `;
-  return title;
+function createDescription(category, item) {
+  let discriptBox
+  switch (category){
+    case 'eat':
+      discriptBox = `
+        <div>
+          <h1>${escape(item.name)}</h1>
+          <p>Are they open? ${escape(item.is_closed)}
+          <p>Food Type : ${escape(item.categories[0].title)}</p>
+          <img src="${(item.image_url)}" height="300px" width="300px">
+          <p>Address: ${escape(item.location.address1)}</p>
+          <p>Rating: ${escape(item.rating)}</p>
+          <p>Phone #: ${escape(item.phone)}</p>
+          <a href="${item.url}">Visit Link</a>
+        </div>
+      `;
+      break;
+    case 'watch':
+      break;
+    case 'read':
+      break;
+    case 'buy':
+      break;
+  }
+  return discriptBox;
 }
 
 
-let slideDown = function() {
-
+function showItemDetails() {
   $('ul').on('click', 'p', function() {
-    console.log($('h1').text().trim())
-    if($('h1').text().trim() == 'eat'){
-
-      $.ajax({
-        method: "GET",
-        url: `/api/items/eat/${$(this).text()}`
-      }).done((res) => {
-        console.log(res)
-        let description = createEatDescription(res);
-        $('section').empty();
-        $('section').append(description);
-        $('section').toggle(() => {});
-         })
-
-    } else if($('h1').text().trim() == 'watch'){
-      console.log('aaaaaaaaa');
-      $.ajax({
-        method: "GET",
-        url: `/api/items/watch/${$(this).text()}`
-      }).done((res) => {
-        console.log('result::')
-        console.log(res)
-        //let description = createEatDescription(res);
-        //$('section').empty();
-        //$('section').append(description);
-        //$('section').toggle(() => {});
-     })
-    }
+    const categoryName = $('.category-name').text().toLowerCase().trim();
+    $.ajax({
+      method: "GET",
+      url: `/api/items/${categoryName}/${$(this).text()}`
+    }).done((res) => {
+      let description = createDescription(categoryName, res);
+      $('.item-description').empty();
+      $('.item-description').append(description);
+      $('.item-description').toggle(() => {});
+    });
   });
-
 }
 
 
 $(() => {
+  deleteElementFromList();
   loadDataIntoList();
-  slideDown();
+  showItemDetails();
 });
