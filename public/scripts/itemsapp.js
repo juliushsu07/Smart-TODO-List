@@ -1,4 +1,3 @@
-
 function escape(str) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
@@ -8,16 +7,43 @@ function escape(str) {
 function createListItems(itemname) {
   return $(`
     <li>
-      <form>
-        <input type="checkbox" value="${escape(itemname)}" class="itemname"> <p>${escape(itemname)}</p>
+      <input class="checkbox" type="checkbox" value="${escape(itemname)}">
+      <p>${escape(itemname)}</p>
+      <form class="update-form">
+        <input type="submit" value="Udate">
+      </form>
+      <form class="delete-form">
         <input type="submit" value="Delete">
       </form>
+      <section>
+      </section>
+
     </li>
   `);
 }
 
-function deleteElementFromList(){
- $('body').on('submit', 'form', function(e){
+// to be completed
+function markElementComplete() {
+  $('body').on('click', '.checkbox', function(e) {
+    if (this.checked) {
+      console.log("Marked complete!")
+    }
+  });
+
+}
+
+// to be completed
+function updateElementToList() {
+  $('body').on('submit', '.update-form', function(e) {
+    console.log(this);
+    e.preventDefault();
+    console.log("Updating");
+  });
+}
+
+function deleteElementFromList() {
+
+  $('body').on('submit', '.delete-form', function(e) {
     let itemname = $(this).parent().find('p').text();
     e.preventDefault();
     //ajax call
@@ -30,7 +56,6 @@ function deleteElementFromList(){
     });
   });
 }
-
 
 function loadDataIntoList() {
   $.ajax({
@@ -47,10 +72,9 @@ function loadDataIntoList() {
   });
 }
 
-
 function createDescription(category, item) {
   let discriptBox
-  switch (category){
+  switch (category) {
     case 'eat':
       discriptBox = `
         <div>
@@ -75,7 +99,6 @@ function createDescription(category, item) {
   return discriptBox;
 }
 
-
 function showItemDetails() {
   $('ul').on('click', 'p', function() {
     const categoryName = $('.category-name').text().toLowerCase().trim();
@@ -84,16 +107,17 @@ function showItemDetails() {
       url: `/api/items/${categoryName}/${$(this).text()}`
     }).done((res) => {
       let description = createDescription(categoryName, res);
-      $('.item-description').empty();
-      $('.item-description').append(description);
-      $('.item-description').toggle(() => {});
+      $(this).parent().find('section').empty();
+      $(this).parent().find('section').append(description);
+      $(this).parent().find('section').toggle(() => {});
     });
   });
 }
 
-
 $(() => {
+  markElementComplete();
   deleteElementFromList();
+  updateElementToList();
   loadDataIntoList();
   showItemDetails();
 });

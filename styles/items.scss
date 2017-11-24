@@ -1,11 +1,18 @@
-body{
+body {
 
-  main{
-    p:hover{
-      cursor: pointer;
+  main {
+    ul {
+      li {
+        input:hover {
+          cursor: pointer;
+        }
+        p:hover {
+          cursor: pointer;
+        }
+      }
     }
-    input:hover{
-      cursor: pointer;
+    section{
+      display: none;
     }
   }
 }
