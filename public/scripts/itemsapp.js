@@ -6,7 +6,7 @@ function escape(str) {
 }
 
 function createListItems(itemname) {
-  console.log(itemname);
+
   const $form = $(`
     <form>
        <input type="submit" value="Delete">
