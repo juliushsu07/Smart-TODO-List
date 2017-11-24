@@ -49,7 +49,7 @@ function loadDataIntoList() {
 
 
 function createDescription(category, item) {
-  let discriptBox
+  let discriptBox;
   switch (category){
     case 'eat':
       discriptBox = `
@@ -68,6 +68,16 @@ function createDescription(category, item) {
     case 'watch':
       break;
     case 'read':
+      const book = item.GoodreadsResponse.search[0].results[0].work[0];
+      //also avaiable: author, small image, publication date
+      console.log('book:', book);
+      discriptBox = `
+        <div>
+          <h2>${escape(book.best_book[0].title[0])}</h2>
+          <img src="${book.best_book[0].image_url[0]}">
+          <p>Rating: ${book.average_rating[0]}</p>
+        </div>
+      `;
       break;
     case 'buy':
       break;
