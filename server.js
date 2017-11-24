@@ -1,3 +1,4 @@
+/*jshint esversion: 6*/
 "use strict";
 
 require('dotenv').config();
@@ -35,7 +36,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(flash());
 app.use(session({
     name: 'session',
-    keys: 'idntknw'
+    keys: ['idntknw'],
+    maxAge: 48*60*60*1000
 }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
@@ -56,7 +58,8 @@ app.use("/api/items", itemsRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  console.log("Root page is recieving ", req.session.user_email)
+  res.render("index", {user: req.session.user_email});
 });
 
 // Login page
@@ -89,7 +92,9 @@ app.post('/signin', function (req, res) {
 
   userService.authenticate(email, password)
     .then(function (user) {
+      console.log("Setting sessiong for", user.email);
       req.session.user_email = user.email;
+      console.log("Setting sessions with value", req.session.user_email);
       res.redirect("/");
     })
     .catch(function (err) {
@@ -117,17 +122,17 @@ app.get("/completed", (req, res) => {
             name: result.name,
             date: result.date_completed,
             category: result.category
-          })
+          });
         }
-      })
-      res.render("completed_list", {completedItems: completedItems} );
+      });
+      res.render("completed_list", {completedItems: completedItems, user: req.session.user_email} );
     })
     .catch(err => res.send(err));
 });
 
 app.get("/:id", (req, res) => {
   if (["read", "eat", "buy", "watch"].includes(req.params.id)) {
-    res.render("item", { category: req.params.id })
+    res.render("item", { category: req.params.id, user: req.session.user_email });
   } else {
     res.status(404).send("The list you are looking for does not exist! ");
   }

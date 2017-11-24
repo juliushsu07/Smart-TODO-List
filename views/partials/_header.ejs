@@ -1,0 +1,11 @@
+<nav id="nav-bar">
+  <h2>Smart List</h2>
+  <% if (!user){ %>
+      <a href="/login">Login</a>
+    <% } else { %>
+      Current User: <%=user%> <br>
+      <form method="POST" action="/logout">
+        <input type="submit" value="Logout">
+      </form>
+    <% } %>
+</nav>
