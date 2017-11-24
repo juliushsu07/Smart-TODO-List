@@ -102,8 +102,6 @@ app.post('/signin', function (req, res) {
     });
 });
 
-
-
 //list page
 app.get("/completed", (req, res) => {
   let completedItems = [];
