@@ -13,8 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "amazon-product-api": "^0.4.4",
-    "apac": "^3.0.2",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^2.0.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",

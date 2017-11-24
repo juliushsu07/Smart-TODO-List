@@ -7,6 +7,9 @@ const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
+const bcrypt      = require("bcrypt");
+const session     = require("cookie-session");
+const flash       = require("connect-flash");
 const app         = express();
 
 const knexConfig  = require("./knexfile");
@@ -28,12 +31,22 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(flash());
+app.use(session({
+    name: 'session',
+    keys: 'idntknw'
+}));
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
   debug: true,
   outputStyle: 'expanded'
 }));
+
+//set up services:
+const userService = require("./lib/userService")(knex);
+
+//Mount public routes:
 app.use(express.static("public"));
 
 // Mount all resource routes
@@ -45,6 +58,52 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// Login page
+app.get("/login", (req,res) => {
+  res.render("login", {
+    errors: req.flash('errors'),
+    info: req.flash('info'),
+    user: req.session.user_email
+  });
+});
+app.post("/signup", (req,res) => {
+  let {name, email, password} = req.body;
+
+  userService.createUser(name, email, password)
+    .then(function(user) {
+      req.session.user_email = user.email;
+      res.redirect("/");
+    })
+    .catch(function(err){
+      req.flash('errors', err.message);
+      res.render('login', {
+        errors: req.flash('errors'),
+        info: req.flash('info'),
+        user: {}
+      });
+    });
+});
+app.post('/signin', function (req, res) {
+  const { email, password } = req.body;
+
+  userService.authenticate(email, password)
+    .then(function (user) {
+      req.session.user_email = user.email;
+      res.redirect("/");
+    })
+    .catch(function (err) {
+      req.flash('errors', err.message);
+      res.render('login', {
+        errors: req.flash('errors'),
+        info: req.flash('info'),
+        user: {}
+      });
+    });
+});
+
+
+
+//list page
 app.get("/:id", (req, res) => {
   if (["read", "eat", "buy", "watch"].includes(req.params.id) ) {
     res.render("item", {category: req.params.id})
