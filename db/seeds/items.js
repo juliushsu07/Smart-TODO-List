@@ -40,7 +40,7 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         knex('items').insert({
           category: 'buy',
-          name: "iPhone 8",
+          name: "PlayStation",
           description: 'phone',
           date_added: '2017-11-22',
           date_completed: null,
