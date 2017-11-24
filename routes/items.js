@@ -1,3 +1,4 @@
+/*jshint esversion: 6*/
 "use strict";
 
 const express = require('express');
@@ -34,24 +35,38 @@ module.exports = (knex) => {
       .catch(err => res.send(err));
   });
 
+  function getIDFromEmail(email, callback){
+    knex('users')
+      .select('id')
+      .where({email: email})
+      .then( (result)=>{
+        callback(result[0].id);
+      });
+  }
+
 
   router.post("/", (req, res) => {
-    let date = new Date();
-    console.log(req.body);
-    debugger;
-    googleAPI(req.body.name, function(err, category, description){
-      if (err){
-        res.send('500: error automatically categorizing');
-      }
-      knex('items').insert([{
-          category: category,
-          name: req.body.name,
-          description: description,
-          date_added: date.toISOString().substr(0, 10),
-          user_id: 1
-        }])
-        .then(res.redirect('/'))
-        .catch(err => res.send(err));
+    if (!req.session.user_email){
+      res.redirect("/login");
+      return;
+    }
+    getIDFromEmail(req.session.user_email, id => {
+      console.log(id);
+      let date = new Date();
+      googleAPI(req.body.name, function(err, category, description){
+        if (err){
+          res.send('500: error automatically categorizing');
+        }
+        knex('items').insert([{
+            category: category,
+            name: req.body.name,
+            description: description,
+            date_added: date.toISOString().substr(0, 10),
+            user_id: id
+          }])
+          .then(res.redirect('/'))
+          .catch(err => res.send(err));
+      });
     });
   });
 
@@ -60,7 +75,7 @@ module.exports = (knex) => {
       .where('name', req.params.name)
       .update({date_completed: new Date().toISOString() })
       .then(() => {
-        res.json({success: true})
+        res.json({success: true});
       })
       .catch(err => res.send(err));
   });
@@ -72,36 +87,36 @@ module.exports = (knex) => {
       .where('name', req.params.name)
       .delete()
       .then(() => {
-        res.json({success: true})
+        res.json({success: true});
       })
       .catch(err => res.send(err));
   });
 
   router.get('/eat/:name', (req, res) => {
     yelpAPI(req.params.name, (jsonres) => {
-      res.send(jsonres)
+      res.send(jsonres);
     });
   });
 
 
   router.get('/watch/:name', (req, res) => {
     omdbAPI(req.params.name, (jsonres) => {
-      res.send(jsonres)
-    })
-  })
+      res.send(jsonres);
+    });
+  });
 
   router.get('/read/:name', (req, res) => {
     goodreadsAPI(req.params.name, (err, jsonres) => {
-      res.send(jsonres)
-    })
-  })
+      res.send(jsonres);
+    });
+  });
 
   router.get('/buy/:name', (req, res) => {
     amazonAPI(req.params.name, (err, jsonres) => {
       console.log("WHAT WE GET BACK", JSON.stringify(err), jsonres);
-      res.send(jsonres)
-    })
-  })
+      res.send(jsonres);
+    });
+  });
 
 
 
