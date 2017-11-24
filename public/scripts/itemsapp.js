@@ -127,6 +127,26 @@ function createDescription(category, item) {
       `;
       break;
     case 'buy':
+    let firstResult = item[0]
+    let itemAttributes = firstResult.ItemAttributes[0]
+    let title = itemAttributes.Title[0]
+    let image = firstResult.ImageSets[0].ImageSet[0].HiResImage[0].URL[0]
+    let price = firstResult.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0]
+      console.log(itemAttributes.Title[0])
+      discriptBox= `
+      <h3>${title}</h3>
+      <img src="${image}" height="300px" width="300px">
+      <p>Buy Now: <a href="${firstResult.DetailPageURL[0]}">Click Here</a>
+      <p>Price:${price}</p>
+
+
+      `
+
+
+
+
+
+
       break;
   }
   return discriptBox;

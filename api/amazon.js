@@ -21,15 +21,15 @@ client.itemSearch({
     responseGroup: 'ItemAttributes,Offers,Images',
     domain: 'webservices.amazon.ca'
   })
-  .then(function(results) {
-    console.log(results)
+  .then(function(result, err) {
+    callback(err, result)
   }).catch(function(err) {
-    console.log(err['Error'][0]['Message'])
+    callback(err)
   })
 }
 
 
-amazonAPI("PlayStation", null)
+// amazonAPI("PlayStation", null)
 
 module.exports = amazonAPI
 

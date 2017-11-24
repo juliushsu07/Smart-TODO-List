@@ -6,6 +6,7 @@ const googleAPI = require('../api/google.js');
 const yelpAPI = require('../api/yelp.js');
 const omdbAPI = require('../api/omdb.js');
 const goodreadsAPI = require('../api/goodreads.js');
+const amazonAPI = require('../api/amazon.js');
 
 
 
@@ -91,6 +92,13 @@ module.exports = (knex) => {
 
   router.get('/read/:name', (req, res) => {
     goodreadsAPI(req.params.name, (err, jsonres) => {
+      res.send(jsonres)
+    })
+  })
+
+  router.get('/buy/:name', (req, res) => {
+    amazonAPI(req.params.name, (err, jsonres) => {
+      console.log("WHAT WE GET BACK", JSON.stringify(err), jsonres);
       res.send(jsonres)
     })
   })
