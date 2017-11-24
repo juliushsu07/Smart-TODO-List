@@ -10,7 +10,7 @@ function createListItems(itemname) {
       <p>${escape(itemname)}</p>
       <form class="update-form">
       <select class='category-select'>
-        <option >Please select a category</option>
+        <option value="">Please select a category</option>
         <option value="watch">watch</option>
         <option value="read">read</option>
         <option value="buy">buy</option>
@@ -25,6 +25,7 @@ function createListItems(itemname) {
       <section>
       </section>
     </li>
+
   `);
 }
 
@@ -48,23 +49,21 @@ function markElementComplete() {
 // to be completed
 function updateElementToList() {
   $('body').on('submit', '.update-form', function(e) {
-    let itemname = $(this).parent().find('p').text();
-    let category = $('.category-select').find(":selected").text();
-
     e.preventDefault();
+    let itemname = $(this).parent().find('p').text();
+    let category = $(this).find(":selected").val();
+    if(category === "watch" || category === "read" || category === "buy" || category === "eat"){
+        $.ajax({
+        method: "PUT",
+        url: `/api/items/${itemname}/update/category`,
+        data: {category: category}
+      }).done((results) => {
+        $('ul').empty();
+        loadDataIntoList();
+      });
+      console.log("Item updated");
+    }
 
-    console.log(category);
-
-    $.ajax({
-      method: "PUT",
-      url: `/api/items/${itemname}/update/category`,
-      data: {category: category}
-    }).done((results) => {
-      console.log(results);
-      $('ul').empty();
-      loadDataIntoList();
-    });
-    console.log("Item updated");
   });
 }
 
