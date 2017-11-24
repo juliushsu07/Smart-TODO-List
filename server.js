@@ -24,6 +24,17 @@ const knexLogger  = require('knex-logger');
 const usersRoutes = require("./routes/users");
 const itemsRoutes = require("./routes/items");
 
+// Custom Middlewear:
+const checkLogin = function(req, res, next){
+  if (!req.session.user_email){
+    if (req.path != "/login" && req.path != "/signup" && req.path != "/signin" ){
+      res.redirect("/login");
+      return;
+    }
+  }
+  next();
+};
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -46,6 +57,7 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+app.use(checkLogin);
 
 //set up services:
 const userService = require("./lib/userService")(knex);
@@ -110,7 +122,7 @@ app.post('/signin', function (req, res) {
 app.post("/logout", (req,res)=>{
   req.session = null;
   res.redirect("/");
-})
+});
 
 
 //list page

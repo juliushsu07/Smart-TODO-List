@@ -14,14 +14,17 @@ const amazonAPI = require('../api/amazon.js');
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
-    knex
+    getIDFromEmail(req.session.user_email, id => {
+      knex
       .select("*")
       .from("items")
       .where({date_completed : null})
+      .andWhere({user_id: id})
       .then((results) => {
         res.json(results);
       })
       .catch(err => res.send(err));
+    })
   });
 
    router.get("/completed", (req, res) => {
@@ -46,10 +49,6 @@ module.exports = (knex) => {
 
 
   router.post("/", (req, res) => {
-    if (!req.session.user_email){
-      res.redirect("/login");
-      return;
-    }
     getIDFromEmail(req.session.user_email, id => {
       console.log(id);
       let date = new Date();
