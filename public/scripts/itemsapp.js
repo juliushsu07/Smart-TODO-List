@@ -76,6 +76,7 @@ function createDescription(category, item) {
   let discriptBox
   switch (category) {
     case 'eat':
+    console.log(item)
       discriptBox = `
         <div>
           <h1>${escape(item.name)}</h1>
@@ -90,6 +91,18 @@ function createDescription(category, item) {
       `;
       break;
     case 'watch':
+      console.log(item);
+      discriptBox = `
+      <div>
+      <h1>${escape(item.Title)}</h1>
+      <img src="${(item.Poster)}" height="500px" width="300px">
+      <p>Released: ${escape(item.Released)}</p>
+      <p>Rating: ${escape(item.imdbRating)}</p>
+      <p>Type: ${escape(item.Type)}</p>
+      <p>Runtime: ${escape(item.Runtime)}</p>
+      <p>Genre: ${escape(item.Genre)}</p>
+      <p>Plot: ${escape(item.Plot)}</p>
+      `
       break;
     case 'read':
       break;
