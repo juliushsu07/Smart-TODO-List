@@ -17,6 +17,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const itemsRoutes = require("./routes/items");
@@ -104,23 +105,37 @@ app.post('/signin', function (req, res) {
 
 
 //list page
+app.get("/completed", (req, res) => {
+  let completedItems = [];
+  knex
+    .select("*")
+    .from("items")
+    .then((results) => {
+      results.forEach(function(result, i) {
+        if (result.date_completed !== null) {
+          completedItems.push({
+            name: result.name,
+            date: result.date_completed,
+            category: result.category
+          })
+        }
+      })
+      res.render("completed_list", {completedItems: completedItems} );
+    })
+    .catch(err => res.send(err));
+});
+
 app.get("/:id", (req, res) => {
-  if (["read", "eat", "buy", "watch"].includes(req.params.id) ) {
-    res.render("item", {category: req.params.id})
+  if (["read", "eat", "buy", "watch"].includes(req.params.id)) {
+    res.render("item", { category: req.params.id })
   } else {
     res.status(404).send("The list you are looking for does not exist! ");
   }
 });
 
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
-
-
-
 
 
 

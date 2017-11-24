@@ -25,11 +25,20 @@ function createListItems(itemname) {
 // to be completed
 function markElementComplete() {
   $('body').on('click', '.checkbox', function(e) {
+    let itemname = $(this).parent().find('p').text();
+    console.log(itemname);
     if (this.checked) {
+      $.ajax({
+        method: "PUT",
+        url: `/api/items/${itemname}`
+      }).done( (items) => {
+        $('ul').empty();
+        loadDataIntoList();
+      });
+      // $(this).parent().remove();
       console.log("Marked complete!")
     }
   });
-
 }
 
 // to be completed
