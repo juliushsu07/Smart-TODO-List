@@ -78,8 +78,6 @@ function createDescription(category, item) {
       <p>Runtime: ${escape(item.Runtime)}</p>
       <p>Genre: ${escape(item.Genre)}</p>
       <p>Plot: ${escape(item.Plot)}</p>
-
-
       `
       break;
     case 'read':
