@@ -14,9 +14,22 @@ module.exports = (knex) => {
     knex
       .select("*")
       .from("items")
+      .where({date_completed : null})
       .then((results) => {
         res.json(results);
-      });
+      })
+      .catch(err => res.send(err));
+  });
+
+   router.get("/completed", (req, res) => {
+    knex
+      .select("*")
+      .from("items")
+      .whereNotNull("date_completed")
+      .then((results) => {
+        res.json(results);
+      })
+      .catch(err => res.send(err));
   });
 
 
@@ -40,6 +53,16 @@ module.exports = (knex) => {
     });
   });
 
+  router.put('/:name', (req, res) => {
+      knex('items')
+      .where('name', req.params.name)
+      .update({date_completed: new Date().toISOString() })
+      .then(() => {
+        res.json({success: true})
+      })
+      .catch(err => res.send(err));
+  });
+
 
   router.delete("/:name", (req, res) => {
     console.log("deleted", req.params.name);
@@ -55,16 +78,15 @@ module.exports = (knex) => {
   router.get('/eat/:name', (req, res) => {
     yelpAPI(req.params.name, (jsonres) => {
       res.send(jsonres)
-    })
-  })
+    });
+  });
 
 
   router.get('/watch/:name', (req, res) => {
     omdbAPI(req.params.name, (jsonres) => {
       res.send(jsonres)
-    })
-  })
-
+    });
+  });
 
 
   return router;
