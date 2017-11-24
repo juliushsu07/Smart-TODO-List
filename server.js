@@ -107,7 +107,10 @@ app.post('/signin', function (req, res) {
       });
     });
 });
-
+app.post("/logout", (req,res)=>{
+  req.session = null;
+  res.redirect("/");
+})
 
 
 //list page
