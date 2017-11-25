@@ -51,19 +51,22 @@ app.use(session({
     keys: ['idntknw'],
     maxAge: 48*60*60*1000
 }));
+
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
   debug: true,
   outputStyle: 'expanded'
 }));
-app.use(checkLogin);
 
 //set up services:
 const userService = require("./lib/userService")(knex);
 
 //Mount public routes:
 app.use(express.static("public"));
+
+app.use(checkLogin);
+
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
