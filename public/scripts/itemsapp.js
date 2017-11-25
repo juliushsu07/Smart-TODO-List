@@ -108,7 +108,7 @@ function createDescription(category, item, callback) {
   switch (category){
     case 'eat':
       discriptBox = `
-        <div>
+        <div class="jumbotron">
           <h1>${escape(item.name)}</h1>
           <p>Are they open? ${escape(item.is_closed)}
           <p>Food Type : ${escape(item.categories[0].title)}</p>
@@ -122,7 +122,7 @@ function createDescription(category, item, callback) {
       break;
     case 'watch':
       discriptBox = `
-      <div>
+      <div class="jumbotron">
       <h1>${escape(item.Title)}</h1>
       <img src="${(item.Poster)}" height="500px" width="300px">
       <p>Released: ${escape(item.Released)}</p>
@@ -138,7 +138,7 @@ function createDescription(category, item, callback) {
       //also avaiable: author, small image, publication date
 
       discriptBox = `
-        <div>
+        <div class="jumbotron">
           <h2>${escape(book.best_book[0].title[0])}</h2>
           <img src="${book.best_book[0].image_url[0]}">
           <p>Rating: ${book.average_rating[0]}</p>
@@ -152,11 +152,12 @@ function createDescription(category, item, callback) {
     let image = firstResult.ImageSets[0].ImageSet[0].HiResImage[0].URL[0];
     let price = firstResult.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
       discriptBox= `
-      <h3>${title}</h3>
-      <img src="${image}" height="300px" width="300px">
-      <p>Buy Now: <a href="${firstResult.DetailPageURL[0]}">Click Here</a>
-      <p>Price:${price}</p>
-
+      <div class="jumbotron">
+        <h3>${title}</h3>
+        <img src="${image}" height="300px" width="300px">
+        <p>Buy Now: <a href="${firstResult.DetailPageURL[0]}">Click Here</a>
+        <p>Price:${price}</p>
+      </div>
 
       `;
       break;
