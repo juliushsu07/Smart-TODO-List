@@ -4,33 +4,39 @@
 <head>
   <title>Home Page</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
   <link rel="stylesheet" href="/styles/items.css" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/itemsapp.js"></script>
 </head>
 
 <body>
-  <header align="center">
-    <% include partials/_header %>
+<header>
+  <div class="jumbotron">
+  <div class="row">
+  <a href="/"><i class="fa fa-home fa-4x" aria-hidden="true"></i></a>
+      <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+        Current User:
+        <%=user%>
+          <br>
+          <form method="POST" action="/logout">
+            <input type="submit" value="Logout">
+          </form>
+      </div>
     <h1 class="category-name"> <%=category%> </h1>
-  </header>
+    </div>
+    </div>
 
+
+
+
+  </header>
   <main>
     <ul class="not-complete"> </ul>
-
-
     Finished Items:
     <ul class="completed"> </ul>
-
   </main>
-
-
-
-  <footer><a href="/">Back To Home</a></footer>
-
 </body>
 
 </html>
