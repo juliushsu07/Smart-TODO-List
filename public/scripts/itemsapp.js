@@ -6,7 +6,7 @@ function escape(str) {
 
 function createListItems(item) {
   return $(`
-    <li>
+    <li data-db_id="${item.id}">
       <p>${escape(item.name)}</p>
       <form class="update-form">
       <select class='category-select'>
@@ -33,11 +33,10 @@ function createListItems(item) {
 
 function markElementComplete() {
   $('body').on('click', '.checkbox', function(e) {
-    let itemname = $(this).parent().find('p').text();
-    console.log(this.checked);
+    let itemID = $(this).parent().data('db_id');
     $.ajax({
       method: "PUT",
-      url: `/api/items/${itemname}/${this.checked}`
+      url: `/api/items/${itemID}/${this.checked}`
     }).done( (message) => {
       if(message.success){
         $('ul').empty();
@@ -51,12 +50,12 @@ function markElementComplete() {
 function updateElementToList() {
   $('body').on('submit', '.update-form', function(e) {
     e.preventDefault();
-    let itemname = $(this).parent().find('p').text();
+    let itemID = $(this).parent().data('db_id');
     let category = $(this).find(":selected").val();
     if(category === "watch" || category === "read" || category === "buy" || category === "eat"){
         $.ajax({
         method: "PUT",
-        url: `/api/items/${itemname}/update/category`,
+        url: `/api/items/${itemID}/update/category`,
         data: {category: category}
       }).done((results) => {
         $('ul').empty();
@@ -70,12 +69,12 @@ function updateElementToList() {
 function deleteElementFromList() {
 
   $('body').on('submit', '.delete-form', function(e) {
-    let itemname = $(this).parent().find('p').text();
+    let itemID = $(this).parent().data('db_id');
     e.preventDefault();
     //ajax call
     $.ajax({
       method: "DELETE",
-      url: `/api/items/${itemname}`
+      url: `/api/items/${itemID}`
     }).done((itemname) => {
       $('ul').empty();
       loadDataIntoList();

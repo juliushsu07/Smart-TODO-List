@@ -49,7 +49,6 @@ module.exports = (knex) => {
 
   router.post("/", (req, res) => {
     getIDFromEmail(req.session.user_email, id => {
-      console.log(id);
       let date = new Date();
       googleAPI(req.body.name, function(err, category, description){
         if (err){
@@ -68,10 +67,10 @@ module.exports = (knex) => {
     });
   });
 
-  router.put('/:name/:complete', (req, res) => {
+  router.put('/:id/:complete', (req, res) => {
     if (req.params.complete == 'true'){
       knex('items')
-      .where('name', req.params.name)
+      .where('id', req.params.id)
       .update({date_completed: new Date().toISOString() })
       .then(() => {
         res.json({success: true});
@@ -79,7 +78,7 @@ module.exports = (knex) => {
       .catch(err => res.send(err));
     } else {
       knex('items')
-      .where('name', req.params.name)
+      .where('id', req.params.id)
       .update({date_completed: null })
       .then(() => {
         res.json({success: true});
@@ -89,10 +88,9 @@ module.exports = (knex) => {
   });
 
 
-  router.delete("/:name", (req, res) => {
-    console.log("deleted", req.params.name);
+  router.delete("/:id", (req, res) => {
     knex('items')
-      .where('name', req.params.name)
+      .where('id', req.params.id)
       .delete()
       .then(() => {
         res.json({success: true});
@@ -126,12 +124,12 @@ module.exports = (knex) => {
     });
   });
 
-  router.put('/:name/update/category', (req, res) => {
+  router.put('/:id/update/category', (req, res) => {
       knex('items')
-      .where('name', req.params.name)
+      .where('id', req.params.id)
       .update({category: req.body.category })
       .then(() => {
-        res.json({success: true})
+        res.json({success: true});
       })
       .catch(err => res.send(err));
   });
