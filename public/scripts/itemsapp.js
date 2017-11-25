@@ -24,8 +24,7 @@ function createListItems(item) {
       <input class="checkbox" type="checkbox" value="${escape(item.name)}"
               ${item.date_completed == null ? '' : 'checked = "checked"'}">
               Check Complete </input>
-      <section>
-      </section>
+      <section style="display: none;"></section>
     </li>
 
   `);
@@ -103,7 +102,7 @@ function loadDataIntoList() {
   });
 }
 
-function createDescription(category, item) {
+function createDescription(category, item, callback) {
 
   let discriptBox;
   switch (category){
@@ -162,21 +161,25 @@ function createDescription(category, item) {
       `;
       break;
   }
-  return discriptBox;
+  callback(discriptBox);
 }
 
 function showItemDetails() {
   $('ul').on('click', 'p', function() {
-    const categoryName = $('.category-name').text().toLowerCase().trim();
-    $.ajax({
-      method: "GET",
-      url: `/api/items/${categoryName}/${$(this).text()}`
-    }).done((res) => {
-      let description = createDescription(categoryName, res);
-      $(this).parent().find('section').empty();
-      $(this).parent().find('section').append(description);
-      $(this).parent().find('section').toggle(() => {});
-    });
+    if (!$(this).parent().find('section').text()){
+      const categoryName = $('.category-name').text().toLowerCase().trim();
+      $.ajax({
+        method: "GET",
+        url: `/api/items/${categoryName}/${$(this).text()}`
+      }).done((res) => {
+        createDescription(categoryName, res, description => {
+          $(this).parent().find('section').append(description);
+          $(this).parent().find('section').toggle('fast');
+        });
+      });
+    } else {
+      $(this).parent().find('section').toggle('fast');
+    }
   });
 }
 
