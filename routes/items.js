@@ -68,7 +68,8 @@ module.exports = (knex) => {
     });
   });
 
-  router.put('/:name', (req, res) => {
+  router.put('/:name/:complete', (req, res) => {
+    if (req.params.complete == 'true'){
       knex('items')
       .where('name', req.params.name)
       .update({date_completed: new Date().toISOString() })
@@ -76,6 +77,15 @@ module.exports = (knex) => {
         res.json({success: true});
       })
       .catch(err => res.send(err));
+    } else {
+      knex('items')
+      .where('name', req.params.name)
+      .update({date_completed: null })
+      .then(() => {
+        res.json({success: true});
+      })
+      .catch(err => res.send(err));
+    }
   });
 
 

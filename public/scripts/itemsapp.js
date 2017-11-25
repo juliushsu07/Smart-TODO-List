@@ -22,7 +22,7 @@ function createListItems(item) {
         <input class="input-button" type="submit" value="Delete"></input>
       </form>
       <input class="checkbox" type="checkbox" value="${escape(item.name)}"
-              checked= "${item.date_completed == true ? "checked" : "false"}">
+              ${item.date_completed == null ? '' : 'checked = "checked"'}">
               Check Complete </input>
       <section>
       </section>
@@ -35,17 +35,15 @@ function markElementComplete() {
   $('body').on('click', '.checkbox', function(e) {
     let itemname = $(this).parent().find('p').text();
     console.log(this.checked);
-    if (this.checked) {
-      $.ajax({
-        method: "PUT",
-        url: `/api/items/${itemname}`
-      }).done( (message) => {
-        if(message.success){
-          //$('ul').empty();
-          //loadDataIntoList();
-        }
-      });
-    }
+    $.ajax({
+      method: "PUT",
+      url: `/api/items/${itemname}/${this.checked}`
+    }).done( (message) => {
+      if(message.success){
+        $('ul').empty();
+        loadDataIntoList();
+      }
+    });
   });
 }
 
@@ -95,6 +93,7 @@ function loadDataIntoList() {
     for (item of items) {
       if (item.category.toUpperCase().trim() === categoryFiltered) {
         console.log(item);
+        console.log(item.date_completed == null);
         if (!item.date_completed){
           $('.not-complete').append(createListItems(item));
         } else {
