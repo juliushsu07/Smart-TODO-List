@@ -7,22 +7,28 @@ function escape(str) {
 function createListItems(itemname) {
   return $(`
     <li>
-      <input class="checkbox" type="checkbox" value="${escape(itemname)}">
       <p>${escape(itemname)}</p>
       <form class="update-form">
-        <input type="submit" value="Udate">
+      <select class='category-select'>
+        <option value="">Please select a category</option>
+        <option value="watch">watch</option>
+        <option value="read">read</option>
+        <option value="buy">buy</option>
+        <option value="eat">eat</option>
+      </select>
+        <input class="input-button" type="submit" value="Udate"></input>
       </form>
       <form class="delete-form">
-        <input type="submit" value="Delete">
+        <input class="input-button" type="submit" value="Delete"></input>
       </form>
+      <input class="checkbox" type="checkbox" value="${escape(itemname)}"> Check Complete</input>
       <section>
       </section>
-
     </li>
+
   `);
 }
 
-// to be completed
 function markElementComplete() {
   $('body').on('click', '.checkbox', function(e) {
     let itemname = $(this).parent().find('p').text();
@@ -35,8 +41,7 @@ function markElementComplete() {
         $('ul').empty();
         loadDataIntoList();
       });
-      // $(this).parent().remove();
-      console.log("Marked complete!")
+      console.log("Item Marked complete!")
     }
   });
 }
@@ -44,9 +49,21 @@ function markElementComplete() {
 // to be completed
 function updateElementToList() {
   $('body').on('submit', '.update-form', function(e) {
-    console.log(this);
     e.preventDefault();
-    console.log("Updating");
+    let itemname = $(this).parent().find('p').text();
+    let category = $(this).find(":selected").val();
+    if(category === "watch" || category === "read" || category === "buy" || category === "eat"){
+        $.ajax({
+        method: "PUT",
+        url: `/api/items/${itemname}/update/category`,
+        data: {category: category}
+      }).done((results) => {
+        $('ul').empty();
+        loadDataIntoList();
+      });
+      console.log("Item updated");
+    }
+
   });
 }
 
@@ -63,6 +80,7 @@ function deleteElementFromList() {
       $('ul').empty();
       loadDataIntoList();
     });
+    console.log("Item deleted");
   });
 }
 
@@ -168,3 +186,6 @@ $(() => {
   loadDataIntoList();
   showItemDetails();
 });
+
+
+

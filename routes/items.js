@@ -117,7 +117,15 @@ module.exports = (knex) => {
     });
   });
 
-
+  router.put('/:name/update/category', (req, res) => {
+      knex('items')
+      .where('name', req.params.name)
+      .update({category: req.body.category })
+      .then(() => {
+        res.json({success: true})
+      })
+      .catch(err => res.send(err));
+  });
 
   return router;
 };
