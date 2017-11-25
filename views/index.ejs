@@ -13,24 +13,29 @@
 
 <body>
   <header class="jumbotron" align="center">
-    <h2>SmartList</h2>
-    Current User: <%=user%> <br>
-    <form method="POST" action="/logout">
-    <input type="submit" value="Logout">
-      </form>
+    <div class="row">
+      <h2>SmartList</h2>
+      <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
+        Current User:
+        <%=user%>
+          <br>
+          <form method="POST" action="/logout">
+            <input type="submit" value="Logout">
+          </form>
+      </div>
+    </div>
   </header>
   <main class="col-xs-1" align="center">
     <form action="/api/items" method="POST">
       <input type="text" name="name" placeholder="name"></input>
       <input type="submit" value="Submit" class="btn-primary btn-sm">
     </form>
-    <a href="/completed">Completed List</a>
     <div class="buttons">
       <a href="/watch" class="btn btn-primary btn-lg"> WATCH <i class="fa fa-film" aria-hidden="true"></i></a>
       <a href="/read" class="btn btn-primary btn-lg"> READ <i class="fa fa-book" aria-hidden="true"></i></a>
       <a href="/buy" class="btn btn-primary btn-lg"> BUY <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
       <a href="/eat" class="btn btn-primary btn-lg"> EAT <i class="fa fa-cutlery" aria-hidden="true"></i></a>
-      </div>
+    </div>
   </main>
 </body>
 
