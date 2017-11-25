@@ -4,10 +4,10 @@ function escape(str) {
   return div.innerHTML;
 }
 
-function createListItems(itemname) {
+function createListItems(item) {
   return $(`
     <li>
-      <p>${escape(itemname)}</p>
+      <p>${escape(item.name)}</p>
       <form class="update-form">
       <select class='category-select'>
         <option value="">Please select a category</option>
@@ -21,7 +21,9 @@ function createListItems(itemname) {
       <form class="delete-form">
         <input class="input-button" type="submit" value="Delete"></input>
       </form>
-      <input class="checkbox" type="checkbox" value="${escape(itemname)}"> Check Complete</input>
+      <input class="checkbox" type="checkbox" value="${escape(item.name)}"
+              checked= "${item.date_completed == true ? "checked" : "false"}">
+              Check Complete </input>
       <section>
       </section>
     </li>
@@ -32,16 +34,17 @@ function createListItems(itemname) {
 function markElementComplete() {
   $('body').on('click', '.checkbox', function(e) {
     let itemname = $(this).parent().find('p').text();
-    console.log(itemname);
+    console.log(this.checked);
     if (this.checked) {
       $.ajax({
         method: "PUT",
         url: `/api/items/${itemname}`
-      }).done( (items) => {
-        $('ul').empty();
-        loadDataIntoList();
+      }).done( (message) => {
+        if(message.success){
+          //$('ul').empty();
+          //loadDataIntoList();
+        }
       });
-      console.log("Item Marked complete!")
     }
   });
 }
@@ -61,7 +64,6 @@ function updateElementToList() {
         $('ul').empty();
         loadDataIntoList();
       });
-      console.log("Item updated");
     }
 
   });
@@ -80,7 +82,6 @@ function deleteElementFromList() {
       $('ul').empty();
       loadDataIntoList();
     });
-    console.log("Item deleted");
   });
 }
 
@@ -93,7 +94,12 @@ function loadDataIntoList() {
     let categoryFiltered = category.toUpperCase().trim();
     for (item of items) {
       if (item.category.toUpperCase().trim() === categoryFiltered) {
-        $('ul').append(createListItems(item.name));
+        console.log(item);
+        if (!item.date_completed){
+          $('.not-complete').append(createListItems(item));
+        } else {
+          $('.completed').append(createListItems(item));
+        }
       }
     }
   });
@@ -104,7 +110,6 @@ function createDescription(category, item) {
   let discriptBox;
   switch (category){
     case 'eat':
-    console.log(item)
       discriptBox = `
         <div>
           <h1>${escape(item.name)}</h1>
@@ -119,7 +124,6 @@ function createDescription(category, item) {
       `;
       break;
     case 'watch':
-      console.log(item);
       discriptBox = `
       <div>
       <h1>${escape(item.Title)}</h1>
@@ -135,7 +139,7 @@ function createDescription(category, item) {
     case 'read':
       const book = item.GoodreadsResponse.search[0].results[0].work[0];
       //also avaiable: author, small image, publication date
-      console.log('book:', book);
+
       discriptBox = `
         <div>
           <h2>${escape(book.best_book[0].title[0])}</h2>
@@ -150,7 +154,6 @@ function createDescription(category, item) {
     let title = itemAttributes.Title[0];
     let image = firstResult.ImageSets[0].ImageSet[0].HiResImage[0].URL[0];
     let price = firstResult.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
-      console.log(itemAttributes.Title[0]);
       discriptBox= `
       <h3>${title}</h3>
       <img src="${image}" height="300px" width="300px">

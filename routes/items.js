@@ -16,15 +16,14 @@ module.exports = (knex) => {
   router.get("/", (req, res) => {
     getIDFromEmail(req.session.user_email, id => {
       knex
-      .select("*")
+      .select()
       .from("items")
-      .where({date_completed : null})
-      .andWhere({user_id: id})
+      .where({user_id: id})
       .then((results) => {
         res.json(results);
       })
       .catch(err => res.send(err));
-    })
+    });
   });
 
    router.get("/completed", (req, res) => {
