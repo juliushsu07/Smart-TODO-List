@@ -1,18 +1,51 @@
 body {
+  font-family: 'Raleway', sans-serif;
+  background-color: #2686b2;
 
-  main {
-    ul {
-      li {
-        .input-button:hover {
+
+  .btn-lg {
+    padding: 50px;
+  }
+
+  .buttons {
+    margin-top: 5em;
+  }
+
+.jumbotron {
+  background-color: #dad7d7;
+  padding: 2em 1rem;
+
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    margin-left: 1em;
+  }
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 1em;
+  }
+
+  .h1, h1 {
+    font-size: 2.5rem;
+    margin-left: 2em;
+  }
+
+   p:hover {
           cursor: pointer;
         }
-        p:hover {
-          cursor: pointer;
-        }
-      }
-    }
-    section{
+
+
+  section{
       display: none;
     }
-  }
+ }
 }
+
+
+
+
+
