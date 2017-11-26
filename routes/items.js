@@ -55,6 +55,7 @@ module.exports = (knex) => {
       googleAPI(req.body.name, function(err, category, description) {
         if (err) {
           res.send('500: error automatically categorizing');
+          return;
         }
         knex('items').insert([{
             category: category,
