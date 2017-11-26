@@ -9,21 +9,22 @@ const omdbAPI = require('../api/omdb.js');
 const goodreadsAPI = require('../api/goodreads.js');
 const amazonAPI = require('../api/amazon.js');
 
-
+//select * from "items" where "user_id" = 12 order by date completed date_added nulls last
 
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
     getIDFromEmail(req.session.user_email, id => {
       knex
-        .select()
-        .from("items")
-        .where({ user_id: id })
-        .orderBy('date_completed')
-        .then((results) => {
-          res.json(results);
-        })
-        .catch(err => res.send(err));
+      .select()
+      .from("items")
+      .where({user_id: id})
+      .orderBy('date_completed', 'desc')
+      .orderBy('date_added', 'desc')
+      .then((results) => {
+        res.json(results);
+      })
+      .catch(err => res.send(err));
     });
   });
 
