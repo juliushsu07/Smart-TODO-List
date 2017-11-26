@@ -62,7 +62,7 @@ module.exports = (knex) => {
             date_added: date.toISOString(),
             user_id: id
           }])
-          .then(res.redirect('/'))
+          .then(res.send({category: category}))
           .catch(err => res.send(err));
       });
     });
