@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+$orange: #F25C54;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #E8E8E8;
+  font-family: 'Raleway', sans-serif;
+}
+
+.cbox,
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  flex-direction: column;
+  height: 1em;
+}
+
+.parent {
+  width: 200px;
+  height: 50px;
+  position: relative;
+  .add,
+  .cbox,
+  .message {
+    position: absolute;
+  }
+  .add,
+  .message {
+    color: white;
+  }
+  .add {
+    top: -3px;
+    right: 25px;
+    transition: 0.6s all 0.3s;
+    letter-spacing: 1px;
+  }
+}
+
+.message,
+.cbox {
+  outline: none;
+}
+
+.cbox {
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background: $orange;
+  border-radius: 100%;
+  -webkit-appearance: none;
+  z-index: 3;
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: #E8E8E8;
+    transition: 0.4s all;
+  }
+  &:after {
+    transform: rotate(90deg);
+  }
+  &:checked {
+    ~.message {
+      width: 300px;
+      height: 50px;
+      transition: 0.3s width, 0.3s height 0.2s;
+    }
+    &:before,
+    &:after {
+      transform: rotate(360deg);
+      transition: 0.4s all;
+    }
+    ~.add {
+      font-size: 13px;
+      transform: translateY(-16px);
+      transition: 0.3s all;
+    }
+  }
+}
+
+.message {
+  right: 0;
+  height: 0;
+  width: 0;
+  transition: 0.4s all;
+  background: none;
+  border: 2px solid white;
+  transition: 0.4s width 0.2s, 0.1s height;
+  font-size: 30px;
+  padding-left: 10px;
+}
+
+
