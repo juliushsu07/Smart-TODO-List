@@ -143,6 +143,7 @@ function createDescription(category, item, callback) {
           <img src="${book.best_book[0].image_url[0]}">
           <p>Author: ${book.best_book[0].author[0].name}</p>
           <p>Rating: ${book.average_rating[0]}</p>
+          <p>Published: ${book.original_publication_year[0]._}</p>
         </div>
       `;
       break;
