@@ -2,11 +2,6 @@
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 $orange: #F25C54;
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
 body {
   background: #E8E8E8;
   font-family: 'Raleway', sans-serif;
@@ -88,6 +83,10 @@ body {
       transition: 0.3s all;
     }
   }
+}
+
+.cbox:hover{
+  cursor: pointer;
 }
 
 .message {

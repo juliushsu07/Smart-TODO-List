@@ -7,14 +7,6 @@ body {
     background-color: #dad7d7;
     padding: 2em 1rem;
 
-    p:hover {
-      cursor: pointer;
-    }
-
-    section {
-      display: none;
-    }
-
     .btn-primary {
       color: #fff;
       background-color: #007bff;
@@ -23,12 +15,20 @@ body {
     }
   }
 
-  .buttons {
-    margin-top: 5em;
-  }
-
   .fa-home:before {
     content: "\f015";
     color: black;
   }
+}
+
+input:hover {
+  cursor: pointer;
+}
+
+section {
+  display: none;
+}
+
+.item-name:hover{
+  cursor: pointer;
 }
