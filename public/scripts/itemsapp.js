@@ -15,7 +15,7 @@ function escape(str) {
 function createListItems(item) {
   return $(`
     <li data-db_id="${item.id}">
-      <p>${escape(item.name)}</p>
+      <p class="item-name">${escape(item.name)}</p>
       <form class="update-form">
       <select class='category-select'>
         <option value="">Please select a category</option>
