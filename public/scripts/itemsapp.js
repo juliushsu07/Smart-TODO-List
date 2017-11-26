@@ -148,8 +148,12 @@ function createDescription(category, item, callback) {
     case 'buy':
     let firstResult = item[0];
     let itemAttributes = firstResult.ItemAttributes[0];
-    let title = itemAttributes.Title[0];
-    let image = firstResult.ImageSets[0].ImageSet[0].HiResImage[0].URL[0];
+    title = itemAttributes.Title[0];
+    let image;
+    if (firstResult.LargeImage)
+      image = firstResult.LargeImage[0].URL[0];
+    else
+      image = firstResult.ImageSets[0].ImageSet[0].HiResImage[0].URL[0];
     let price = firstResult.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
       discriptBox= `
       <div class="jumbotron">
@@ -168,12 +172,16 @@ function createDescription(category, item, callback) {
 function showItemDetails() {
   $('ul').on('click', 'p', function() {
     if (!$(this).parent().find('section').text()){
+      $(this).parent().find('section').text('...loading...');
       const categoryName = $('.category-name').text().toLowerCase().trim();
       $.ajax({
         method: "GET",
         url: `/api/items/${categoryName}/${$(this).text()}`
       }).done((res) => {
+        alert('lightbulbs!');
+        console.log(res);
         createDescription(categoryName, res, description => {
+          $(this).parent().find('section').empty();
           $(this).parent().find('section').append(description);
           $(this).parent().find('section').toggle('fast');
         });

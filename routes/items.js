@@ -19,6 +19,7 @@ module.exports = (knex) => {
       .select()
       .from("items")
       .where({user_id: id})
+      .orderBy('date_completed')
       .then((results) => {
         res.json(results);
       })
@@ -58,7 +59,7 @@ module.exports = (knex) => {
             category: category,
             name: req.body.name,
             description: description,
-            date_added: date.toISOString().substr(0, 10),
+            date_added: date.toISOString(),
             user_id: id
           }])
           .then(res.redirect('/'))
@@ -71,7 +72,7 @@ module.exports = (knex) => {
     if (req.params.complete == 'true'){
       knex('items')
       .where('id', req.params.id)
-      .update({date_completed: new Date().toISOString() })
+      .update({date_completed: new Date().toISOString()})
       .then(() => {
         res.json({success: true});
       })
