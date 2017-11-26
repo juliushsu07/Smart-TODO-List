@@ -26,10 +26,10 @@ function createListItems(item) {
             <option value="buy">buy</option>
             <option value="eat">eat</option>
           </select>
-          <input class="input-button" type="submit" value="Update"></input>
+          <input class="input-button btn btn-primary" type="submit" value="Update"></input>
         </form>
         <form class="delete-form form-inline">
-          <input class="input-button" type="submit" value="Delete"></input>
+          <input class="input-button btn btn-primary" type="submit" value="Delete"></input>
         </form>
       </div>
       </div>

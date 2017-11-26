@@ -4,9 +4,23 @@ body {
     padding: 2em 1rem;
     border-radius: 0;
 
+
+
     form {
-      input:hover {
+      .btn-primary {
+        background-color: #f4f4f4;
+        border-color: #a6a6a6;
+        color: black;
+        margin-top: 10px;
+        text-align: center;
+        width: 80px;
+
+        padding: .375rem .75rem;
+      }
+
+      .btn-primary:hover {
         cursor: pointer;
+        background-color: grey;
       }
     }
   }

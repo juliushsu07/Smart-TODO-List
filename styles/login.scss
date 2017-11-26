@@ -1,4 +1,12 @@
 body {
+
+  .login-button {
+    background-color: #2686b2;
+    margin-left: 1em;
+    border-radius: 5px;
+    margin-left: 1em;
+  }
+
   .jumbotron {
     background-color: #dad7d7;
     padding: 2em 1rem;
@@ -7,9 +15,13 @@ body {
     .btn-primary {
       color: #fff;
       background-color: #2686b2;
-      border-color: #007bff;
-      margin-left: 1em;
+      border-color: #2686b2;
       padding: 8px 16px 8px 16px;
+    }
+
+    .btn-primary:hover {
+      background-color: rgba(53, 54, 54, 0.7);
+      border-color: #b7bcc2;
     }
 
     .form-inline .form-control {

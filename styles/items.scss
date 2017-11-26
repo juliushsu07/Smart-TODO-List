@@ -3,16 +3,9 @@ body {
     border-radius: 0;
     background-color: #dad7d7;
     padding: 2em 1rem;
-
-    .btn-primary {
-      color: #fff;
-      background-color: #007bff;
-      border-color: #007bff;
-      padding: 50px;
-    }
   }
 
-  .jumbotron.description-box{
+  .jumbotron.description-box {
     border-radius: 10px;
     background-color: #fff;
   }
@@ -23,44 +16,42 @@ body {
   }
 
   h3 {
-    display:inline-block;
+    display: inline-block;
     color: white;
     font-weight: normal;
   }
 
-  .input-button{
+  .input-button {
     margin-left: 10px;
-    width: 72px;
   }
-  .delete-form{
+  .delete-form {
     float: right;
   }
 
-  .form-group{
+  .form-group {
     display: inline-block;
     float: right;
   }
 
-  .list-group{
+  .list-group {
     width: 90%;
     margin: auto;
   }
 
-  .list-group-item{
+  .list-group-item {
     /*background-color: silver*/
     background-color: #2686b2;
     border-radius: 5px;
     border: solid white thin;
     margin-bottom: 10px;
-    label{
+    label {
       font-weight: bold;
     }
   }
 
-  .list-group-item:hover{
-    background-color: rgba(0,0,0,.3);
+  .list-group-item:hover {
+    background-color: rgba(0, 0, 0, .3);
   }
-
 }
 
 input:hover {
@@ -71,6 +62,19 @@ section {
   display: none;
 }
 
-.item-name:hover{
+.item-name:hover {
   cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #f4f4f4;
+  border-color: #a6a6a6;
+  color: black;
+  margin-top: 10px;
+  text-align: center;
+  width: 80px;
+}
+
+.btn-primary:hover {
+  background-color: grey;
 }
