@@ -1,14 +1,12 @@
 body {
-  background-color: #2686b2;
-  font-family: 'Raleway', sans-serif;
-
   .jumbotron {
     background-color: #dad7d7;
     padding: 2em 1rem;
+    border-radius: 0;
 
     .btn-primary {
       color: #fff;
-      background-color: #007bff;
+      background-color: #2686b2;
       border-color: #007bff;
       margin-left: 1em;
     }
@@ -20,13 +18,11 @@ body {
       margin-left: 1em;
     }
 
-    .h1,
     h1 {
       font-size: 2.5rem;
       margin-left: 2em;
     }
   }
-
   p {
     font-size: 1.5em;
   }
