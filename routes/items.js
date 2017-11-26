@@ -9,7 +9,7 @@ const omdbAPI = require('../api/omdb.js');
 const goodreadsAPI = require('../api/goodreads.js');
 const amazonAPI = require('../api/amazon.js');
 
-
+//select * from "items" where "user_id" = 12 order by date completed date_added nulls last
 
 module.exports = (knex) => {
 
@@ -19,7 +19,8 @@ module.exports = (knex) => {
       .select()
       .from("items")
       .where({user_id: id})
-      .orderBy('date_completed')
+      .orderBy('date_completed', 'desc')
+      .orderBy('date_added', 'desc')
       .then((results) => {
         res.json(results);
       })
