@@ -4,8 +4,9 @@
 <head>
   <title>Home</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/registration.css" type="text/css">
   <link rel="stylesheet" href="/styles/login.css" type="text/css">
-   <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
 </head>
 
 <body>
@@ -37,31 +38,28 @@
           <img class="logo" src="/images/wishlist.gif" height="500px" width="500px">
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <form class="form" method="POST" action="/signup">
-            <h2>Register</h2>
-            <div class="form-group">
-              <label>Name</label>
-              <input class="form-control" type="text" name="name" />
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input class="form-control" type="email" name="email" />
-            </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input class="form-control" type="password" name="password" />
-            </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <input class="form-control" type="password" name="passwordConfirm" />
-            </div>
-            <div>
-              <button class="btn btn-primary" type="submit">Register</button>
-            </div>
-          </form>
+          <div class="user">
+              <h1 class="user__title">Please Register Below</h1>
+            </header>
+            <form class="form" method="POST" action="/signup">
+              <div class="form__group">
+                <input type="text" placeholder="Name" class="form__input" name="name" />
+              </div>
+              <div class="form__group">
+                <input type="email" placeholder="Email" class="form__input" name="email" />
+              </div>
+              <div class="form__group">
+                <input type="password" placeholder="Password" class="form__input" name="password" />
+              </div>
+              <div class="form__group">
+                <input type="password" placeholder="Confirm Password" class="form__input" name="passwordConfirm" />
+              </div>
+              <button class="btn" type="submit">Register</button>
+            </form>
           </div>
         </div>
       </div>
+  </div>
   </div>
 </body>
 
