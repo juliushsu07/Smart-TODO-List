@@ -2,45 +2,35 @@ body {
   font-family: 'Raleway', sans-serif;
   background-color: #2686b2;
 
+  .jumbotron {
+    background-color: #dad7d7;
+    padding: 2em 1rem;
+    border-radius: 0;
 
-  .btn-lg {
-    padding: 50px;
+    div {
+      form {
+        input:hover {
+          cursor: pointer;
+        }
+      }
+    }
   }
 
-  .buttons {
-    margin-top: 5em;
-  }
+  main {
+    .buttons {
+      margin-top: 5em;
+      margin-bottom: 5em;
+      .btn-primary {
+        padding: 50px;
+      }
 
-.jumbotron {
-  background-color: #dad7d7;
-  padding: 2em 1rem;
+      a {
+        width: 300px;
+      }
+    }
+  }
 
   .btn-primary {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    margin-left: 1em;
-  }
-
-.form-inline .form-control {
-    display: inline-block;
-    width: auto;
-    vertical-align: middle;
-    margin-left: 1em;
-  }
-
-  .h1, h1 {
-    font-size: 2.5rem;
-    margin-left: 2em;
-  }
-
-
-  }
-
-
-
-
-.btn-primary {
     color: #fff;
     background-color: rgba(0, 123, 255, 0);
     border-color: rgb(183, 188, 194);
@@ -50,13 +40,6 @@ body {
     color: #fff;
     background-color: rgba(53, 54, 54, 0.5);
     border-color: rgb(183, 188, 194);
-}
-
-
-
-
-
-
-
-
+    cursor: pointer;
   }
+}

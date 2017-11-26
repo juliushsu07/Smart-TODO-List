@@ -16,18 +16,18 @@ module.exports = (knex) => {
   router.get("/", (req, res) => {
     getIDFromEmail(req.session.user_email, id => {
       knex
-      .select()
-      .from("items")
-      .where({user_id: id})
-      .orderBy('date_completed')
-      .then((results) => {
-        res.json(results);
-      })
-      .catch(err => res.send(err));
+        .select()
+        .from("items")
+        .where({ user_id: id })
+        .orderBy('date_completed')
+        .then((results) => {
+          res.json(results);
+        })
+        .catch(err => res.send(err));
     });
   });
 
-   router.get("/completed", (req, res) => {
+  router.get("/completed", (req, res) => {
     knex
       .select("*")
       .from("items")
@@ -38,11 +38,11 @@ module.exports = (knex) => {
       .catch(err => res.send(err));
   });
 
-  function getIDFromEmail(email, callback){
+  function getIDFromEmail(email, callback) {
     knex('users')
       .select('id')
-      .where({email: email})
-      .then( (result)=>{
+      .where({ email: email })
+      .then((result) => {
         callback(result[0].id);
       });
   }
@@ -51,8 +51,8 @@ module.exports = (knex) => {
   router.post("/", (req, res) => {
     getIDFromEmail(req.session.user_email, id => {
       let date = new Date();
-      googleAPI(req.body.name, function(err, category, description){
-        if (err){
+      googleAPI(req.body.name, function(err, category, description) {
+        if (err) {
           res.send('500: error automatically categorizing');
         }
         knex('items').insert([{
@@ -62,29 +62,29 @@ module.exports = (knex) => {
             date_added: date.toISOString(),
             user_id: id
           }])
-          .then(res.send({category: category}))
+          .then(res.send({ category: category }))
           .catch(err => res.send(err));
       });
     });
   });
 
   router.put('/:id/:complete', (req, res) => {
-    if (req.params.complete == 'true'){
+    if (req.params.complete == 'true') {
       knex('items')
-      .where('id', req.params.id)
-      .update({date_completed: new Date().toISOString()})
-      .then(() => {
-        res.json({success: true});
-      })
-      .catch(err => res.send(err));
+        .where('id', req.params.id)
+        .update({ date_completed: new Date().toISOString() })
+        .then(() => {
+          res.json({ success: true });
+        })
+        .catch(err => res.send(err));
     } else {
       knex('items')
-      .where('id', req.params.id)
-      .update({date_completed: null })
-      .then(() => {
-        res.json({success: true});
-      })
-      .catch(err => res.send(err));
+        .where('id', req.params.id)
+        .update({ date_completed: null })
+        .then(() => {
+          res.json({ success: true });
+        })
+        .catch(err => res.send(err));
     }
   });
 
@@ -94,7 +94,7 @@ module.exports = (knex) => {
       .where('id', req.params.id)
       .delete()
       .then(() => {
-        res.json({success: true});
+        res.json({ success: true });
       })
       .catch(err => res.send(err));
   });
@@ -126,16 +126,14 @@ module.exports = (knex) => {
   });
 
   router.put('/:id/update/category', (req, res) => {
-      knex('items')
+    knex('items')
       .where('id', req.params.id)
-      .update({category: req.body.category })
+      .update({ category: req.body.category })
       .then(() => {
-        res.json({success: true});
+        res.json({ success: true });
       })
       .catch(err => res.send(err));
   });
 
   return router;
 };
-
-

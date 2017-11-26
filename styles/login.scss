@@ -3,38 +3,32 @@ body {
   font-family: 'Raleway', sans-serif;
 
 
-.jumbotron {
-  background-color: #dad7d7;
-  padding: 2em 1rem;
+  .jumbotron {
+    background-color: #dad7d7;
+    padding: 2em 1rem;
 
-  .btn-primary {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    margin-left: 1em;
+    .btn-primary {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+      margin-left: 1em;
+    }
+
+    .form-inline .form-control {
+      display: inline-block;
+      width: auto;
+      vertical-align: middle;
+      margin-left: 1em;
+    }
+
+    .h1,
+    h1 {
+      font-size: 2.5rem;
+      margin-left: 2em;
+    }
   }
 
-.form-inline .form-control {
-    display: inline-block;
-    width: auto;
-    vertical-align: middle;
-    margin-left: 1em;
+  p {
+    font-size: 1.5em;
   }
-
-  .h1, h1 {
-    font-size: 2.5rem;
-    margin-left: 2em;
-  }
-
-
-  }
-
-p {
-font-size: 1.5em;
 }
-
-
-
-  }
-
-

@@ -13,21 +13,18 @@
 
 <body>
   <header class="jumbotron" align="center">
-    <div class="row">
-      <h2>SmartList</h2>
-      <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
-        Current User:
-        <%=user%>
-          <br>
-          <form method="POST" action="/logout">
-            <input type="submit" value="Logout">
-          </form>
-      </div>
+    <h1>SmartList</h1>
+    <div>
+      Current User:
+      <%=user%>
+        <form method="POST" action="/logout">
+          <input type="submit" value="Logout">
+        </form>
     </div>
   </header>
-  <main class="col-xs-1" align="center">
+  <main align="center">
     <form class="submit-item" action="/api/items" method="POST">
-      <input class= "submit-text-input" type="text" name="name" placeholder="to-do item"></input>
+      <input class="submit-text-input" type="text" name="name" placeholder="to-do item"></input>
       <input type="submit" value="Submit" class="btn-primary btn-sm">
     </form>
     <div class="buttons">
