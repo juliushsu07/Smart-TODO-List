@@ -1,3 +1,11 @@
+$(() => {
+  markElementComplete();
+  deleteElementFromList();
+  updateElementToList();
+  loadDataIntoList();
+  showItemDetails();
+});
+
 function escape(str) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
@@ -191,14 +199,5 @@ function showItemDetails() {
     }
   });
 }
-
-$(() => {
-  markElementComplete();
-  deleteElementFromList();
-  updateElementToList();
-  loadDataIntoList();
-  showItemDetails();
-});
-
 
 
