@@ -14,24 +14,28 @@ function escape(str) {
 
 function createListItems(item) {
   return $(`
-    <li data-db_id="${item.id}">
-      <p class="item-name">${escape(item.name)}</p>
-      <form class="update-form">
-      <select class='category-select'>
-        <option value="">Please select a category</option>
-        <option value="watch">watch</option>
-        <option value="read">read</option>
-        <option value="buy">buy</option>
-        <option value="eat">eat</option>
-      </select>
-        <input class="input-button" type="submit" value="Udate"></input>
-      </form>
-      <form class="delete-form">
-        <input class="input-button" type="submit" value="Delete"></input>
-      </form>
+    <li data-db_id="${item.id}" class="list-group-item">
+      <div>
+      <h3 class="item-name">${escape(item.name)}</h3>
+      <div class="form-group">
+        <form class="update-form form-inline">
+          <select class='category-select'>
+            <option value="">Category</option>
+            <option value="watch">watch</option>
+            <option value="read">read</option>
+            <option value="buy">buy</option>
+            <option value="eat">eat</option>
+          </select>
+          <input class="input-button" type="submit" value="Update"></input>
+        </form>
+        <form class="delete-form form-inline">
+          <input class="input-button" type="submit" value="Delete"></input>
+        </form>
+      </div>
+      </div>
       <input class="checkbox" type="checkbox" value="${escape(item.name)}"
               ${item.date_completed == null ? '' : 'checked = "checked"'}">
-              Check Complete </input>
+               </input> <label>Check Complete</label>
       <section style="display: none;"></section>
     </li>
 
@@ -57,7 +61,7 @@ function markElementComplete() {
 function updateElementToList() {
   $('body').on('submit', '.update-form', function(e) {
     e.preventDefault();
-    let itemID = $(this).parent().data('db_id');
+    let itemID = $(this).closest('li').data('db_id');
     let category = $(this).find(":selected").val();
     if(category === "watch" || category === "read" || category === "buy" || category === "eat"){
         $.ajax({
@@ -118,7 +122,7 @@ function createDescription(category, item, callback) {
       discriptBox = `
         <div class="container">
           <div class="jumbotron row description-box">
-            <h1 class="col col-sm-12">${escape(item.name)}</h1>
+            <h2 class="col col-sm-12">${escape(item.name)}</h2>
             <div class="col col-sm-6">
               <img src="${(item.image_url)}" height="300px" width="300px">
             </div>
@@ -137,7 +141,7 @@ function createDescription(category, item, callback) {
     case 'watch':
       discriptBox = `
       <div class="jumbotron">
-      <h1>${escape(item.Title)}</h1>
+      <h2>${escape(item.Title)}</h2>
       <img src="${(item.Poster)}" height="500px" width="300px">
       <p>Released: ${escape(item.Released)}</p>
       <p>Rating: ${escape(item.imdbRating)}</p>
@@ -173,7 +177,7 @@ function createDescription(category, item, callback) {
     let price = firstResult.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
       discriptBox= `
       <div class="jumbotron">
-        <h3>${title}</h3>
+        <h2>${title}</h2>
         <img src="${image}" height="300px" width="300px">
         <p>Buy Now: <a href="${firstResult.DetailPageURL[0]}">Click Here</a>
         <p>Price:${price}</p>
@@ -186,18 +190,19 @@ function createDescription(category, item, callback) {
 }
 
 function showItemDetails() {
-  $('ul').on('click', 'p', function() {
-    if (!$(this).parent().find('section').text()){
-      $(this).parent().find('section').text('...loading...');
+  $('ul').on('click', 'h3', function() {
+    let $section = $(this).closest('li').find('section');
+    if (!$section.text()){
+      $section.text('...loading...');
       const categoryName = $('.category-name').text().toLowerCase().trim();
       $.ajax({
         method: "GET",
         url: `/api/items/${categoryName}/${$(this).text()}`
       }).done((res) => {
         createDescription(categoryName, res, description => {
-          $(this).parent().find('section').empty();
-          $(this).parent().find('section').append(description);
-          $(this).parent().find('section').toggle('fast');
+          $section.empty();
+          $section.append(description);
+          $section.toggle('fast');
         });
       });
     } else {
