@@ -116,15 +116,21 @@ function createDescription(category, item, callback) {
   switch (category){
     case 'eat':
       discriptBox = `
-        <div class="jumbotron">
-          <h1>${escape(item.name)}</h1>
-          <p>Are they open? ${escape(item.is_closed)}
-          <p>Food Type : ${escape(item.categories[0].title)}</p>
-          <img src="${(item.image_url)}" height="300px" width="300px">
-          <p>Address: ${escape(item.location.address1)}</p>
-          <p>Rating: ${escape(item.rating)}</p>
-          <p>Phone #: ${escape(item.phone)}</p>
-          <a href="${item.url}">Visit Link</a>
+        <div class="container">
+          <div class="jumbotron row description-box">
+            <h1 class="col col-sm-12">${escape(item.name)}</h1>
+            <div class="col col-sm-6">
+              <img src="${(item.image_url)}" height="300px" width="300px">
+            </div>
+            <div class="col col-sm-6">
+              <p>${escape(item.is_closed)=="true" ? "Open now." : "Closed"}
+              <p>Food Type : ${escape(item.categories[0].title)}</p>
+              <p>Address: ${escape(item.location.address1)}</p>
+              <p>Rating: ${escape(item.rating)} / 5 </p>
+              <p>Phone #: ${escape(item.phone)}</p>
+              <a href="${item.url}">Visit Website</a>
+            </div>
+          </div>
         </div>
       `;
       break;
