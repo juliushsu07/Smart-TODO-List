@@ -12,29 +12,20 @@
 </head>
 
 <body>
-<header>
-  <div class="jumbotron">
-  <div class="row">
-  <a href="/"><i class="fa fa-home fa-4x" aria-hidden="true"></i></a>
-      <div class="col-lg-5 col-md-5 col-sm-8 col-xs-12">
-        Current User:
-        <%=user%>
-          <br>
-          <form method="POST" action="/logout">
-            <input type="submit" value="Logout">
-          </form>
-      </div>
-    <h1 class="category-name"> <%=category%> </h1>
+  <header>
+    <div class="jumbotron" align="center">
+      <h1 class="category-name"> <%=category%> </h1>
+      <p>Current User: <%=user%>
+      </p>
+      <form method="POST" action="/logout">
+        <input type="submit" value="Logout">
+      </form>
+      <a href="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
     </div>
-    </div>
-
-
-
-
   </header>
   <main>
     <ul class="not-complete"> </ul>
-    Finished Items:
+    <h5>Finished Items:</h5>
     <ul class="completed"> </ul>
   </main>
 </body>
