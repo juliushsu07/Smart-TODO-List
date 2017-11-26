@@ -178,8 +178,6 @@ function showItemDetails() {
         method: "GET",
         url: `/api/items/${categoryName}/${$(this).text()}`
       }).done((res) => {
-        alert('lightbulbs!');
-        console.log(res);
         createDescription(categoryName, res, description => {
           $(this).parent().find('section').empty();
           $(this).parent().find('section').append(description);
