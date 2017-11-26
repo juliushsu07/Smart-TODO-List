@@ -140,15 +140,22 @@ function createDescription(category, item, callback) {
       break;
     case 'watch':
       discriptBox = `
-      <div class="jumbotron">
-      <h2>${escape(item.Title)}</h2>
-      <img src="${(item.Poster)}" height="500px" width="300px">
-      <p>Released: ${escape(item.Released)}</p>
-      <p>Rating: ${escape(item.imdbRating)}</p>
-      <p>Type: ${escape(item.Type)}</p>
-      <p>Runtime: ${escape(item.Runtime)}</p>
-      <p>Genre: ${escape(item.Genre)}</p>
-      <p>Plot: ${escape(item.Plot)}</p>
+      <div class="container">
+        <div class="jumbotron row description-box">
+          <h2 class="col-sm-12">${escape(item.Title)}</h2>
+          <div class="col col-sm-6">
+            <img src="${(item.Poster)}" height="500px" width="300px">
+          </div>
+          <div class="col col-sm-6">
+            <p>Released: ${escape(item.Released)}</p>
+            <p>Rating: ${escape(item.imdbRating)}</p>
+            <p>Type: ${escape(item.Type)}</p>
+            <p>Runtime: ${escape(item.Runtime)}</p>
+            <p>Genre: ${escape(item.Genre)}</p>
+            <p>Plot: ${escape(item.Plot)}</p>
+          </div>
+        </div>
+      </div>
       `
       break;
     case 'read':
@@ -156,12 +163,18 @@ function createDescription(category, item, callback) {
       //also avaiable: author, small image, publication date
       console.log(book)
       discriptBox = `
-        <div class="jumbotron">
-          <h2>${escape(book.best_book[0].title[0])}</h2>
-          <img src="${book.best_book[0].image_url[0]}">
-          <p>Author: ${book.best_book[0].author[0].name}</p>
-          <p>Rating: ${book.average_rating[0]}</p>
-          <p>Published: ${book.original_publication_year[0]._}</p>
+        <div class="container">
+          <div class="jumbotron row description-box">
+            <h2 class="col-sm-12">${escape(book.best_book[0].title[0])}</h2>
+            <div class="col col-sm-6">
+              <img src="${book.best_book[0].image_url[0]}">
+            </div>
+            <div class="col col-sm-6">
+              <p>Author: ${book.best_book[0].author[0].name}</p>
+              <p>Rating: ${book.average_rating[0]}</p>
+              <p>Published: ${book.original_publication_year[0]._}</p>
+            </div>
+          </div>
         </div>
       `;
       break;
@@ -176,13 +189,18 @@ function createDescription(category, item, callback) {
       image = firstResult.ImageSets[0].ImageSet[0].HiResImage[0].URL[0];
     let price = firstResult.OfferSummary[0].LowestNewPrice[0].FormattedPrice[0];
       discriptBox= `
-      <div class="jumbotron">
-        <h2>${title}</h2>
-        <img src="${image}" height="300px" width="300px">
-        <p>Buy Now: <a href="${firstResult.DetailPageURL[0]}">Click Here</a>
-        <p>Price:${price}</p>
+      <div class="container">
+        <div class="jumbotron row description-box">
+          <h2 class="col-sm-12">${title}</h2>
+          <div class="col col-sm-6">
+            <img src="${image}" height="300px" width="300px">
+          </div>
+          <div class="col col-sm-6">
+            <p>Buy Now: <a href="${firstResult.DetailPageURL[0]}">Click Here</a>
+            <p>Price:${price}</p>
+          </div>
+        </div>
       </div>
-
       `;
       break;
   }
