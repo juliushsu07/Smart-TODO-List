@@ -206,7 +206,7 @@ function showItemDetails() {
         });
       });
     } else {
-      $(this).parent().find('section').toggle('fast');
+      $section.toggle('fast');
     }
   });
 }
