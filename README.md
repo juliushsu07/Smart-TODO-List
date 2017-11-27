@@ -1,14 +1,14 @@
-# Node Skeleton
+# SmartList
 
-## Project Setup
+## Description
 
-1. Create your own empty repo on GitHub
-2. Clone this repository (do not fork)
-  - Suggestion: When cloning, specify a different folder name that is relevant to your project
-3. Remove the git remote: `git remote rm origin`
-4. Add a remote for your origin: `git remote add origin <your github repo URL>`
-5. Push to the new origin: `git push -u origin master`
-6. Verify that the skeleton code now shows up in your repo on GitHub
+SmartList is an app designed to automatially categorize your To-Do list.  
+
+Items can be marked as one of four categories :
+1. Read
+2. Eat
+3. Buy
+4. Watch
 
 ## Getting Started
 
@@ -27,3 +27,22 @@
 
 - Node 5.10.x or above
 - NPM 3.8.x or above
+- amazon-product-api: ^0.4.4,
+- bcrypt: ^1.0.3,
+- body-parser: ^1.15.2,
+- connect-flash: ^0.1.1,
+- cookie-session: ^2.0.0-beta.3,
+- dotenv: ^2.0.0,
+- ejs: ^2.4.1,
+- express: ^4.13.4,
+- knex: ^0.11.7,
+- knex-logger: ^0.1.0,
+- morgan: ^1.7.0,
+- node-sass-middleware: ^0.9.8,
+- pg: ^6.0.2,
+- request: ^2.83.0,
+- xml2js: ^0.4.19,
+- yelp-fusion: ^1.0.4
+- nodemon: ^1.9.2,
+- sqlite3: ^3.1.4
+
