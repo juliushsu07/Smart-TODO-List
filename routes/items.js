@@ -9,10 +9,10 @@ const omdbAPI = require('../api/omdb.js');
 const goodreadsAPI = require('../api/goodreads.js');
 const amazonAPI = require('../api/amazon.js');
 
-//select * from "items" where "user_id" = 12 order by date completed date_added nulls last
 
 module.exports = (knex) => {
 
+  //send back all items for a given user
   router.get("/", (req, res) => {
     getIDFromEmail(req.session.user_email, id => {
       knex
@@ -28,6 +28,7 @@ module.exports = (knex) => {
     });
   });
 
+  //send back all completed items for a given user
   router.get("/completed", (req, res) => {
     knex
       .select("*")
@@ -39,6 +40,7 @@ module.exports = (knex) => {
       .catch(err => res.send(err));
   });
 
+  //db call to get user_id
   function getIDFromEmail(email, callback) {
     knex('users')
       .select('id')
@@ -48,7 +50,7 @@ module.exports = (knex) => {
       });
   }
 
-
+  //recieving new item to add to databas
   router.post("/", (req, res) => {
     getIDFromEmail(req.session.user_email, id => {
       let date = new Date();
@@ -70,6 +72,7 @@ module.exports = (knex) => {
     });
   });
 
+  //check off that item has been completed in the database
   router.put('/:id/:complete', (req, res) => {
     if (req.params.complete == 'true') {
       knex('items')
@@ -90,7 +93,7 @@ module.exports = (knex) => {
     }
   });
 
-
+  //delete item from db
   router.delete("/:id", (req, res) => {
     knex('items')
       .where('id', req.params.id)
@@ -101,25 +104,28 @@ module.exports = (knex) => {
       .catch(err => res.send(err));
   });
 
+  //handle yelp api calls
   router.get('/eat/:name', (req, res) => {
     yelpAPI(req.params.name, (jsonres) => {
       res.send(jsonres);
     });
   });
 
-
+  //handle omdb api calls
   router.get('/watch/:name', (req, res) => {
     omdbAPI(req.params.name, (jsonres) => {
       res.send(jsonres);
     });
   });
 
+  //handle goodreads api calls
   router.get('/read/:name', (req, res) => {
     goodreadsAPI(req.params.name, (err, jsonres) => {
       res.send(jsonres);
     });
   });
 
+  //handle amazon api calls
   router.get('/buy/:name', (req, res) => {
     amazonAPI(req.params.name, (err, jsonres) => {
       console.log("WHAT WE GET BACK", JSON.stringify(err), jsonres);
@@ -127,6 +133,7 @@ module.exports = (knex) => {
     });
   });
 
+  //update the category of an item in the database
   router.put('/:id/update/category', (req, res) => {
     knex('items')
       .where('id', req.params.id)

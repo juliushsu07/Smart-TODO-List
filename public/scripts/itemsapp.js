@@ -1,3 +1,7 @@
+//scripts for the items page
+
+
+//on document load, handle the events in these functions
 $(() => {
   markElementComplete();
   deleteElementFromList();
@@ -51,9 +55,8 @@ function markElementComplete() {
       url: `/api/items/${itemID}/${this.checked}`
     }).done( (message) => {
       if(message.success){
-        // $('ul').empty();
-        // loadDataIntoList();
         let checked = this.checked;
+        //animate the list item to change lists
         $(this).closest('li').hide(150, function(){
           if(checked){
             $('.completed').prepend($(this).closest('li'));
@@ -67,7 +70,7 @@ function markElementComplete() {
   });
 }
 
-// to be completed
+//finds the correct category and sends an ajax call to the server
 function updateElementToList() {
   $('body').on('submit', '.update-form', function(e) {
     e.preventDefault();
@@ -79,33 +82,32 @@ function updateElementToList() {
         url: `/api/items/${itemID}/update/category`,
         data: {category: category}
       }).done((results) => {
+        //animation
         $(this).closest('li').animate({'margin-left':'25%'},150);
         $(this).closest('li').hide(400);
-        // $('ul').empty();
-        // loadDataIntoList();
       });
     }
 
   });
 }
 
+//on delete button press, send an ajax call to delete the item
 function deleteElementFromList() {
-
   $('body').on('submit', '.delete-form', function(e) {
     let itemID = $(this).closest('li').data('db_id');
     e.preventDefault();
-    //ajax call
+
     $.ajax({
       method: "DELETE",
       url: `/api/items/${itemID}`
     }).done((itemname) => {
+      //animation on completion
       $(this).closest('li').hide(200);
-      // $('ul').empty();
-      // loadDataIntoList();
     });
   });
 }
 
+//ajax call on load to load items
 function loadDataIntoList() {
   $.ajax({
     method: "GET",
@@ -114,9 +116,9 @@ function loadDataIntoList() {
     let category = $('.category-name').text();
     let categoryFiltered = category.toUpperCase().trim();
     for (item of items) {
+      //check that the item is from the list we want
       if (item.category.toUpperCase().trim() === categoryFiltered) {
-        console.log(item);
-        console.log(item.date_completed == null);
+        //sort into correct list
         if (!item.date_completed){
           $('.not-complete').append(createListItems(item));
         } else {
@@ -128,6 +130,7 @@ function loadDataIntoList() {
 }
 
 function createDescription(category, item, callback) {
+//because all the apis are slightly different, we need to handle them separately
 
   let discriptBox;
   switch (category){
@@ -173,8 +176,6 @@ function createDescription(category, item, callback) {
       break;
     case 'read':
       const book = item.GoodreadsResponse.search[0].results[0].work[0];
-      //also avaiable: author, small image, publication date
-      console.log(book)
       discriptBox = `
         <div class="container">
           <div class="jumbotron row description-box">
@@ -220,6 +221,8 @@ function createDescription(category, item, callback) {
   callback(discriptBox);
 }
 
+//when you click the item, do an ajax call
+//and recieve information to display
 function showItemDetails() {
   $('ul').on('click', 'h3', function() {
     let $section = $(this).closest('li').find('section');
