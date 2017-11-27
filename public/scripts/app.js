@@ -8,19 +8,20 @@ $(() => {
       $(".message").val("");
       $(".add").text("Add Item");
     }
-    $('.submit-item').on('submit', function(event) {
-      event.preventDefault();
-      const data = $(this).serialize();
-      console.log(this)
-      $.post("/api/items", data, (res) => {
-        if (res.category) {
-          $('.message').val("");
-          console.log($('.' + res.category));
-          $('.' + res.category).animate({ padding: '70px' }, function() {
-            $(this).animate({ padding: '50px' });
-          });
-        }
-      });
+  });
+
+  $('.submit-item').on('submit', function(event) {
+    event.preventDefault();
+    const data = $(this).serialize();
+    $.post("/api/items", data, (res) => {
+      if (res.category) {
+        $('.message').val("");
+        console.log($('.' + res.category));
+        $('.' + res.category).animate({ padding: '70px' }, function() {
+          $(this).animate({ padding: '50px' });
+        });
+      }
     });
   });
+
 });

@@ -36,6 +36,7 @@ function createListItems(item) {
       <input class="checkbox" type="checkbox" value="${escape(item.name)}"
               ${item.date_completed == null ? '' : 'checked = "checked"'}">
                </input> <label>Check Complete</label>
+      <div class="clearfix"></div>
       <section style="display: none;"></section>
     </li>
 
