@@ -5,10 +5,16 @@
 SmartList is an app designed to automatially categorize your To-Do list.  
 
 Items can be marked as one of four categories :
+
 1. Read
 2. Eat
 3. Buy
 4. Watch
+
+!["Login Page"](https://github.com/MattEmond/Smart-TODO-List/blob/master/docs/login.png?raw=true)
+!["Main Page"](https://github.com/MattEmond/Smart-TODO-List/blob/master/docs/main-page.png?raw=true)
+!["Input Bar"](https://github.com/MattEmond/Smart-TODO-List/blob/master/docs/input-bar.png?raw=true)
+!["Description Container"](https://github.com/MattEmond/Smart-TODO-List/blob/master/docs/description-container.png?raw=true)
 
 ## Getting Started
 
