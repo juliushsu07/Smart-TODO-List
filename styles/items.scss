@@ -93,3 +93,9 @@ section {
 .btn-primary:hover {
   background-color: grey;
 }
+
+@media screen and (min-width: 800px) {
+  ul li a {
+    display: block;
+  }
+}

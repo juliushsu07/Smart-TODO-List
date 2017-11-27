@@ -136,10 +136,10 @@ function createDescription(category, item, callback) {
         <div class="container">
           <div class="jumbotron row description-box">
             <h2 class="col col-sm-12">${escape(item.name)}</h2>
-            <div class="col col-sm-6">
-              <img src="${(item.image_url)}" height="300px" width="300px">
+            <div class="col-sm-8 col-lg-6">
+              <img src="${(item.image_url)}" height="275px" width="275px">
             </div>
-            <div class="col col-sm-6">
+            <div class="col-sm-4 col-lg-6">
               <p>${escape(item.is_closed)=="true" ? "Open now." : "Closed"}
               <p>Food Type : ${escape(item.categories[0].title)}</p>
               <p>Address: ${escape(item.location.address1)}</p>
@@ -156,10 +156,10 @@ function createDescription(category, item, callback) {
       <div class="container">
         <div class="jumbotron row description-box">
           <h2 class="col-sm-12">${escape(item.Title)}</h2>
-          <div class="col col-sm-6">
-            <img src="${(item.Poster)}" height="500px" width="300px">
+          <div class="col-sm-8 col-lg-6">
+            <img src="${(item.Poster)}" width="275px">
           </div>
-          <div class="col col-sm-6">
+          <div class="col-sm-4 col-lg-6">
             <p>Released: ${escape(item.Released)}</p>
             <p>Rating: ${escape(item.imdbRating)}</p>
             <p>Type: ${escape(item.Type)}</p>
@@ -179,10 +179,10 @@ function createDescription(category, item, callback) {
         <div class="container">
           <div class="jumbotron row description-box">
             <h2 class="col-sm-12">${escape(book.best_book[0].title[0])}</h2>
-            <div class="col col-sm-6">
-              <img src="${book.best_book[0].image_url[0]}">
+            <div class="col-sm-6">
+              <img src="${book.best_book[0].image_url[0]}"  width="175px">
             </div>
-            <div class="col col-sm-6">
+            <div class="col-sm-6">
               <p>Author: ${book.best_book[0].author[0].name}</p>
               <p>Rating: ${book.average_rating[0]}</p>
               <p>Published: ${book.original_publication_year[0]._}</p>
@@ -205,10 +205,10 @@ function createDescription(category, item, callback) {
       <div class="container">
         <div class="jumbotron row description-box">
           <h2 class="col-sm-12">${title}</h2>
-          <div class="col col-sm-6">
-            <img src="${image}" height="300px" width="300px">
+          <div class="col-sm-8 col-lg-6">
+            <img src="${image}" height="275px" width="275px">
           </div>
-          <div class="col col-sm-6">
+          <div class="col-sm-4 col-lg-6">
             <p>Buy Now: <a href="${firstResult.DetailPageURL[0]}">Click Here</a>
             <p>Price:${price}</p>
           </div>
