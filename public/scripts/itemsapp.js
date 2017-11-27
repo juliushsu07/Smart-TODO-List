@@ -44,14 +44,23 @@ function createListItems(item) {
 
 function markElementComplete() {
   $('body').on('click', '.checkbox', function(e) {
-    let itemID = $(this).parent().data('db_id');
+    let itemID = $(this).closest('li').data('db_id');
     $.ajax({
       method: "PUT",
       url: `/api/items/${itemID}/${this.checked}`
     }).done( (message) => {
       if(message.success){
-        $('ul').empty();
-        loadDataIntoList();
+        // $('ul').empty();
+        // loadDataIntoList();
+        let checked = this.checked;
+        $(this).closest('li').hide(150, function(){
+          if(checked){
+            $('.completed').prepend($(this).closest('li'));
+          } else {
+            $('.not-complete').prepend($(this).closest('li'));
+          }
+          $(this).closest('li').show(150);
+        });
       }
     });
   });
@@ -69,7 +78,7 @@ function updateElementToList() {
         url: `/api/items/${itemID}/update/category`,
         data: {category: category}
       }).done((results) => {
-        $(this).closest('li').animate({'margin-left':'100px'},150);
+        $(this).closest('li').animate({'margin-left':'25%'},150);
         $(this).closest('li').hide(400);
         // $('ul').empty();
         // loadDataIntoList();
