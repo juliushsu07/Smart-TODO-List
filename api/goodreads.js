@@ -1,8 +1,7 @@
 const request = require('request');
-const clientKey = process.env.GOODREADS_KEY;
 const { parseString } = require('xml2js');
 
-
+const clientKey = process.env.GOODREADS_KEY;
 
 
 function goodreadsAPI(text, callback) {
@@ -15,7 +14,5 @@ function goodreadsAPI(text, callback) {
     }
   });
 };
-
-// goodreadsAPI('harry potter', console.log);
 
 module.exports = goodreadsAPI;

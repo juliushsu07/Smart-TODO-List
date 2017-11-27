@@ -47,5 +47,5 @@ exports.seed = function(knex, Promise) {
           user_id: 3
         })
      ]);
-   })
+   });
 };

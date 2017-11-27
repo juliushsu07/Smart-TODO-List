@@ -1,6 +1,6 @@
 const request = require('request');
-const clientKey = process.env.DB_GOOGLE_KEY;
 
+const clientKey = process.env.DB_GOOGLE_KEY;
 
 
 
@@ -17,7 +17,7 @@ module.exports = function googleAPI(text, callback) {
       callback(null, lookup[JSON.parse(body).items[0].displayLink], JSON.parse(body).items[0].title);
     } else {
 
-      callback({ error: '#google_problems' });
+      callback({ error: err });
     }
   });
 };
