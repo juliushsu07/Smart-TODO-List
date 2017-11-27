@@ -7,42 +7,38 @@
   <link rel="stylesheet" href="/styles/layout.css" type="text/css">
   <link rel="stylesheet" href="/styles/registration.css" type="text/css">
   <link rel="stylesheet" href="/styles/login.css" type="text/css">
-
   <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
 </head>
 
 <body>
-  <div class="jumbotron">
+  <header class="jumbotron">
     <div class="row">
       <div class="col-sm-6">
         <h1>Welcome</h1>
       </div>
-      <div>
-        <form class="form-inline" method="POST" action="/signin">
-          <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="email" />
-          </div>
-          <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="password" />
-          </div>
-          <div class="login-button">
-            <button class="btn btn-primary" type="submit">Log in</button>
-          </div>
-        </form>
-      </div>
+      <form class="form-inline" method="POST" action="/signin">
+        <div class="form-group">
+          <input class="form-control" type="email" name="email" placeholder="email" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="password" placeholder="password" />
+        </div>
+        <div class="login-button">
+          <button class="btn btn-primary" type="submit">Log in</button>
+        </div>
+      </form>
     </div>
-  </div>
-  <div class="container">
-    <%- include partials/_flash.ejs %>
+  </header>
+  <main class="container">
+      <%- include partials/_flash.ejs %>
       <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <section class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <p>SmartList is an app designed to automatically manage your To-Do lists.</p>
           <img class="logo" src="/images/wishlist.gif" height="500px" width="500px">
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        </section>
+        <section class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
           <div class="user">
-              <h1 class="user__title">Please Register Below</h1>
-            </header>
+            <h1 class="user__title">Please Register Below</h1>
             <form class="form" method="POST" action="/signup">
               <div class="form__group">
                 <input type="text" placeholder="Name" class="form__input" name="name" />
@@ -59,10 +55,9 @@
               <button class="btn" type="submit">Register</button>
             </form>
           </div>
-        </div>
-      </div>
-  </div>
-  </div>
+        </section>
+      </section>
+  </main>
 </body>
 
 </html>
