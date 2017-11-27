@@ -69,8 +69,10 @@ function updateElementToList() {
         url: `/api/items/${itemID}/update/category`,
         data: {category: category}
       }).done((results) => {
-        $('ul').empty();
-        loadDataIntoList();
+        $(this).closest('li').animate({'margin-left':'100px'},150);
+        $(this).closest('li').hide(400);
+        // $('ul').empty();
+        // loadDataIntoList();
       });
     }
 
@@ -80,15 +82,16 @@ function updateElementToList() {
 function deleteElementFromList() {
 
   $('body').on('submit', '.delete-form', function(e) {
-    let itemID = $(this).parent().data('db_id');
+    let itemID = $(this).closest('li').data('db_id');
     e.preventDefault();
     //ajax call
     $.ajax({
       method: "DELETE",
       url: `/api/items/${itemID}`
     }).done((itemname) => {
-      $('ul').empty();
-      loadDataIntoList();
+      $(this).closest('li').hide(200);
+      // $('ul').empty();
+      // loadDataIntoList();
     });
   });
 }
